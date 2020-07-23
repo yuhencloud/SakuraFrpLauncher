@@ -5,6 +5,7 @@ SFLGlobalMgr* SFLGlobalMgr::m_global_mgr_instance = nullptr;
 
 SFLGlobalMgr::SFLGlobalMgr()
     : QObject(qApp),
+    m_launcher(nullptr),
     m_loading_dlg(nullptr)
 {
 }
@@ -33,6 +34,17 @@ void SFLGlobalMgr::DeleteInstance(
 }
 
 //////////////////////////////////////////////////////////////////////////
+
+void SFLGlobalMgr::SetLauncher(
+    SakuraFrpLauncher* launcher
+) {
+    m_launcher = launcher;
+}
+
+SakuraFrpLauncher* SFLGlobalMgr::Launcher(
+) const {
+    return m_launcher;
+}
 
 void SFLGlobalMgr::SetLoadingDlg(
     SFLLoadingDlg* loading_dlg

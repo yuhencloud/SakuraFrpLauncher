@@ -10,6 +10,7 @@
 
 class QSystemTrayIcon;
 class QLineEdit;
+class QCheckBox;
 class SFLGroupTabWidget;
 
 class SakuraFrpLauncher : public SFLDialogBase
@@ -20,6 +21,12 @@ public:
 
     SakuraFrpLauncher(QWidget *parent = 0);
     ~SakuraFrpLauncher();
+
+public:
+
+    void ShowTrayMessage(
+        const TunnelProcess& tunnel_process
+    );
 
 protected:
 
@@ -63,6 +70,7 @@ private:
 
     QSystemTrayIcon* m_system_tray_icon;
     QLineEdit* m_line_edit;
+    QCheckBox* m_tray_message_check_box;
     SFLGroupTabWidget* m_group_tab_widget;
 
 };

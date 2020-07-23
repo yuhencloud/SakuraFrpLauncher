@@ -5,6 +5,7 @@
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QCheckBox>
 
 #include "SFLNetworkMgr.h"
 #include "SFLDBMgr.h"
@@ -41,6 +42,8 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
 
     // ³õÊ¼»¯¼ÓÔØ¿ò
     SFLGlobalMgr::GetInstance()->SetLoadingDlg(new SFLLoadingDlg());
+
+    SFLGlobalMgr::GetInstance()->SetLauncher(this);
 }
 
 SakuraFrpLauncher::~SakuraFrpLauncher()
@@ -134,9 +137,14 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     login_btn->setText(QStringLiteral("µÇÂ¼"));
     connect(login_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnLoginBtnClicked);
 
+    m_tray_message_check_box = new QCheckBox(login_widget);
+    m_tray_message_check_box->setText(QStringLiteral("ÍÐÅÌÍ¨Öª"));
+    m_tray_message_check_box->setChecked(true);
+
     login_widget_h_layout->addWidget(m_line_edit);
     login_widget_h_layout->addWidget(login_btn);
     login_widget_h_layout->addStretch();
+    login_widget_h_layout->addWidget(m_tray_message_check_box);
 
     login_widget->setLayout(login_widget_h_layout);
 
@@ -281,4 +289,25 @@ void SakuraFrpLauncher::InitTunnelsGroup(
     SFLDBMgr::GetInstance()->InsertGroupAndTunnel(db, group_item_info_list, tunnel_item_info_list);
     SFLDBMgr::GetInstance()->EndTransaction(db);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+}
+
+void SakuraFrpLauncher::ShowTrayMessage(
+    const TunnelProcess& tunnel_process
+) {
+    if (!m_tray_message_check_box->isChecked()) {
+        return;
+    }
+
+    QString title = "";
+    if (e_running_state_warnning == tunnel_process.running_state) {
+        title = QStringLiteral("¾¯¸æ");
+    } else if (e_running_state_error == tunnel_process.running_state) {
+        title = QStringLiteral("´íÎó");
+    } else {
+        return;
+    }
+
+    QString message = "";
+    message += QString::number(tunnel_process.tunnel_item_info.tunnel_id) + " " + tunnel_process.tunnel_item_info.name + " " + title;
+    m_system_tray_icon->showMessage(title, message);
 }

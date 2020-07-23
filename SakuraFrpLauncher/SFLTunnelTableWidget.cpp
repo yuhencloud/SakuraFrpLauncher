@@ -47,7 +47,7 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     this->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     this->setFocusPolicy(Qt::NoFocus);
 
-    m_log_dlg = new SFLLogDlg(this);
+    m_log_dlg = new SFLLogDlg();
     m_log_dlg->hide();
 
     m_timer = new QTimer(this);
@@ -57,7 +57,10 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
 
 SFLTunnelTableWidget::~SFLTunnelTableWidget()
 {
-
+    if (nullptr != m_log_dlg) {
+        delete m_log_dlg;
+        m_log_dlg = nullptr;
+    }
 }
 
 void SFLTunnelTableWidget::InitTunnelTableWidget(
@@ -277,8 +280,10 @@ void SFLTunnelTableWidget::OnProcessOutput(
         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_info;
     } else if (-1 != text.indexOf(" [W] ")) {
         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_warnning;
+        SFLGlobalMgr::GetInstance()->Launcher()->ShowTrayMessage(m_tunnel_process_hash[tunnel_id]);
     } else if (-1 != text.indexOf(" [E] ")) {
         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_error;
+        SFLGlobalMgr::GetInstance()->Launcher()->ShowTrayMessage(m_tunnel_process_hash[tunnel_id]);
     }
 //     else {
 //         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;

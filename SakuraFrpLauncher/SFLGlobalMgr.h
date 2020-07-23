@@ -4,6 +4,7 @@
 
 #include <QObject>
 
+#include "SakuraFrpLauncher.h"
 #include "SFLLoadingDlg.h"
 #include "SFLCommonDefs.h"
 
@@ -20,6 +21,13 @@ public:
     );
 
 public:
+
+    void SetLauncher(
+        SakuraFrpLauncher* launcher
+    );
+
+    SakuraFrpLauncher* Launcher(
+    ) const ;
 
     void SetLoadingDlg(
         SFLLoadingDlg* loading_dlg
@@ -56,6 +64,7 @@ private:
 
     static SFLGlobalMgr* m_global_mgr_instance;
 
+    SakuraFrpLauncher* m_launcher;
     SFLLoadingDlg* m_loading_dlg;
     NodeInfo m_node_info;
     TunnelInfo m_tunnel_info;
