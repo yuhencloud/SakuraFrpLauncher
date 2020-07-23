@@ -1,11 +1,12 @@
 ﻿#include "SFLDBMgr.h"
 
 #include <QSqlQuery>
-#include <QUuid>
 #include <QDir>
 #include <QFile>
 #include <QVector>
 #include <QVariant>
+
+#include "SakuraFrpCommon.h"
 
 QMutex SFLDBMgr::m_mutex;
 SFLDBMgr* SFLDBMgr::m_db_instance = nullptr;
@@ -92,7 +93,7 @@ void SFLDBMgr::CloseLocalDB(
 
 QSqlDatabase SFLDBMgr::GetSqlConn(
 ) {
-    QString conn_name = QUuid::createUuid().toString().remove("{").remove("}").remove("-");
+    QString conn_name = SakuraFrpCommon::NextUuid();
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", conn_name);
     db.setDatabaseName(m_db_path);
     db.open();

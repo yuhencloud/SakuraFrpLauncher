@@ -23,21 +23,24 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="SakuraFrpCommon">
+      <UniqueIdentifier>{a45a2952-dc4e-4680-ba1e-a3c62b0a10bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SakuraFrpCommon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SakuraFrpCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sakurafrpcommon_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SFLCommonDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SakuraFrpCommon.h">
+      <Filter>SakuraFrpCommon</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SakuraFrpCommon.cpp">
+      <Filter>SakuraFrpCommon</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

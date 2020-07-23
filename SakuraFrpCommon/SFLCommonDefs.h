@@ -12,6 +12,8 @@ const QString uri_get_tunnels = "launcher/get_tunnels?";
 const QString uri_create_tunnel = "launcher/create_tunnel?";
 const QString uri_delete_tunnel = "launcher/delete_tunnel?";
 
+const QString invalid_symbol = "-";
+
 using NetworkState = enum {
     e_network_success = 0,
     e_network_fail = e_network_success + 1,

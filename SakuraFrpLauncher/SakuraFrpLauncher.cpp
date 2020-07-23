@@ -62,7 +62,7 @@ void SakuraFrpLauncher::InitTrayIcon(
     tray_menu->addAction(quit_action);
 
     m_system_tray_icon = new QSystemTrayIcon(this);
-    m_system_tray_icon->setToolTip(QStringLiteral("Sakura Frp Launcher"));
+    m_system_tray_icon->setToolTip(QStringLiteral("Sakura Frp¿Í»§¶Ë"));
     m_system_tray_icon->setIcon(QIcon(":/Resources/images/icon.ico"));
     connect(m_system_tray_icon, &QSystemTrayIcon::activated, this, &SakuraFrpLauncher::OnActivated);
     m_system_tray_icon->setContextMenu(tray_menu);

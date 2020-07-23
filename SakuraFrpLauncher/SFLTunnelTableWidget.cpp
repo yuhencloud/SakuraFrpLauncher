@@ -147,15 +147,15 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         this->setItem(i, col_index++, description_item);
 
         QTableWidgetItem* startup_time_item = new QTableWidgetItem();
-        startup_time_item->setText("-");
-        startup_time_item->setToolTip("-");
+        startup_time_item->setText(invalid_symbol);
+        startup_time_item->setToolTip(invalid_symbol);
         startup_time_item->setTextAlignment(Qt::AlignCenter);
         startup_time_item->setFlags(startup_time_item->flags() & (~Qt::ItemIsEditable));
         this->setItem(i, col_index++, startup_time_item);
 
         QTableWidgetItem* running_time_item = new QTableWidgetItem();
-        running_time_item->setText("-");
-        running_time_item->setToolTip("-");
+        running_time_item->setText(invalid_symbol);
+        running_time_item->setToolTip(invalid_symbol);
         running_time_item->setTextAlignment(Qt::AlignCenter);
         running_time_item->setFlags(running_time_item->flags() & (~Qt::ItemIsEditable));
         this->setItem(i, col_index++, running_time_item);
@@ -202,7 +202,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(OnProcessStateChanged(QProcess::ProcessState)));
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].process = process;
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].log_text = "";
-        m_tunnel_process_hash[tunnel_item_info.tunnel_id].startup_time = "-";
+        m_tunnel_process_hash[tunnel_item_info.tunnel_id].startup_time = invalid_symbol;
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].tunnel_item_info = tunnel_item_info;
     }
 }
@@ -229,12 +229,12 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
-        m_tunnel_process_hash[tunnel_id].startup_time = "-";
+        m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
     } else if (QProcess::Starting == m_tunnel_process_hash[tunnel_id].process->state()) {
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
-        m_tunnel_process_hash[tunnel_id].startup_time = "-";
+        m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
     }
     UpdateTable();
 }
@@ -302,7 +302,7 @@ void SFLTunnelTableWidget::UpdateTable(
 
         this->item(i, 6)->setText(m_tunnel_process_hash[tunnel_id].startup_time);
 
-        if ("-" != m_tunnel_process_hash[tunnel_id].startup_time) {
+        if (invalid_symbol != m_tunnel_process_hash[tunnel_id].startup_time) {
             QDateTime startup_time = QDateTime::fromString(m_tunnel_process_hash[tunnel_id].startup_time, "yyyy-MM-dd hh:mm:ss");
             QString start_time = startup_time.toString("yyyy-MM-dd hh:mm:ss");
             QDateTime current_time = QDateTime::currentDateTime();
@@ -311,7 +311,7 @@ void SFLTunnelTableWidget::UpdateTable(
             QString running_time = time.addSecs(startup_time.secsTo(current_time)).toString("hh:mm:ss");
             this->item(i, 7)->setText(running_time);
         } else {
-            this->item(i, 7)->setText("-");
+            this->item(i, 7)->setText(invalid_symbol);
         }
 
         if (QProcess::Running != m_tunnel_process_hash[tunnel_id].process->state()) {
