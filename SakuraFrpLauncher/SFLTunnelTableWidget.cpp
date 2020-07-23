@@ -169,12 +169,12 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         process_status_item->setFlags(process_status_item->flags() & (~Qt::ItemIsEditable));
         this->setItem(i, col_index++, process_status_item);
 
-        QTableWidgetItem* running_status = new QTableWidgetItem();
-        running_status->setText(invalid_symbol);
-        running_status->setToolTip(invalid_symbol);
-        running_status->setTextAlignment(Qt::AlignCenter);
-        running_status->setFlags(running_status->flags() & (~Qt::ItemIsEditable));
-        this->setItem(i, col_index++, running_status);
+        QTableWidgetItem* running_state_item = new QTableWidgetItem();
+        running_state_item->setText(invalid_symbol);
+        running_state_item->setToolTip(invalid_symbol);
+        running_state_item->setTextAlignment(Qt::AlignCenter);
+        running_state_item->setFlags(running_state_item->flags() & (~Qt::ItemIsEditable));
+        this->setItem(i, col_index++, running_state_item);
 
         QWidget* container_widget = new QWidget();
         QHBoxLayout* container_widget_h_layout = new QHBoxLayout(container_widget);
@@ -230,21 +230,21 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
         m_tunnel_process_hash[tunnel_id].process->start(start_parameter);
         m_tunnel_process_hash[tunnel_id].process->waitForStarted();
         m_tunnel_process_hash[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-
-        m_log_dlg->UpdateLog(m_tunnel_process_hash[tunnel_id]);
-        m_log_dlg->show();
+// 
+//         m_log_dlg->UpdateLog(m_tunnel_process_hash[tunnel_id]);
+//         m_log_dlg->show();
     } else if (QProcess::Running == m_tunnel_process_hash[tunnel_id].process->state()) {
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
-        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
+        m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;
     } else if (QProcess::Starting == m_tunnel_process_hash[tunnel_id].process->state()) {
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
-        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
+        m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;
     }
     UpdateTable();
 }
@@ -274,14 +274,14 @@ void SFLTunnelTableWidget::OnProcessOutput(
 
     // 判断输出日志级别
     if (-1 != text.indexOf(" [I] ") && -1 != text.indexOf("start proxy success")) {
-        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_info;
+        m_tunnel_process_hash[tunnel_id].running_state = e_running_state_info;
     } else if (-1 != text.indexOf(" [W] ")) {
-        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_warnning;
+        m_tunnel_process_hash[tunnel_id].running_state = e_running_state_warnning;
     } else if (-1 != text.indexOf(" [E] ")) {
-        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_error;
+        m_tunnel_process_hash[tunnel_id].running_state = e_running_state_error;
     }
 //     else {
-//         m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
+//         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;
 //     }
     UpdateTable();
 }
@@ -346,16 +346,16 @@ void SFLTunnelTableWidget::UpdateTable(
             this->item(i, 8)->setTextColor(Qt::green);
         }
 
-        if (e_running_status_none == m_tunnel_process_hash[tunnel_id].running_status) {
+        if (e_running_state_none == m_tunnel_process_hash[tunnel_id].running_state) {
             this->item(i, 9)->setText(invalid_symbol);
             this->item(i, 9)->setTextColor(Qt::black);
-        } else if (e_running_status_info == m_tunnel_process_hash[tunnel_id].running_status) {
+        } else if (e_running_state_info == m_tunnel_process_hash[tunnel_id].running_state) {
             this->item(i, 9)->setText(QStringLiteral("正常"));
             this->item(i, 9)->setTextColor(Qt::green);
-        } else if (e_running_status_warnning == m_tunnel_process_hash[tunnel_id].running_status) {
+        } else if (e_running_state_warnning == m_tunnel_process_hash[tunnel_id].running_state) {
             this->item(i, 9)->setText(QStringLiteral("警告"));
             this->item(i, 9)->setTextColor(QColor(255, 130, 50));
-        } else if (e_running_status_error == m_tunnel_process_hash[tunnel_id].running_status) {
+        } else if (e_running_state_error == m_tunnel_process_hash[tunnel_id].running_state) {
             this->item(i, 9)->setText(QStringLiteral("错误"));
             this->item(i, 9)->setTextColor(Qt::red);
         }

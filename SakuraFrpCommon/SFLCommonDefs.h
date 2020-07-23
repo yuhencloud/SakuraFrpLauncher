@@ -20,11 +20,11 @@ using NetworkState = enum {
     e_network_handle_cancel = e_network_fail + 1
 };
 
-using RunningStatus = enum {
-    e_running_status_none = 0,
-    e_running_status_info = e_running_status_none + 1,
-    e_running_status_warnning = e_running_status_info + 1,
-    e_running_status_error = e_running_status_warnning + 1
+using RunningState = enum {
+    e_running_state_none = 0,
+    e_running_state_info = e_running_state_none + 1,
+    e_running_state_warnning = e_running_state_info + 1,
+    e_running_state_error = e_running_state_warnning + 1
 };
 
 using NodeItemInfo = struct {
@@ -65,7 +65,7 @@ using TunnelProcess = struct {
     QProcess* process;
     QString startup_time;
     QString log_text;
-    RunningStatus running_status;
+    RunningState running_state;
     TunnelItemInfo tunnel_item_info;
 };
 
