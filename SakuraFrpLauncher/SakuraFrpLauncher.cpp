@@ -68,6 +68,7 @@ void SakuraFrpLauncher::InitTrayIcon(
     m_system_tray_icon->setToolTip(QStringLiteral("Sakura Frp¿Í»§¶Ë"));
     m_system_tray_icon->setIcon(QIcon(":/Resources/images/icon.ico"));
     connect(m_system_tray_icon, &QSystemTrayIcon::activated, this, &SakuraFrpLauncher::OnActivated);
+    connect(m_system_tray_icon, &QSystemTrayIcon::messageClicked, this, &SakuraFrpLauncher::showNormal);
     m_system_tray_icon->setContextMenu(tray_menu);
     m_system_tray_icon->show();
 }
@@ -299,15 +300,18 @@ void SakuraFrpLauncher::ShowTrayMessage(
     }
 
     QString title = "";
+    QSystemTrayIcon::MessageIcon icon;
     if (e_running_state_warnning == tunnel_process.running_state) {
         title = QStringLiteral("¾¯¸æ");
+        icon = QSystemTrayIcon::Warning;
     } else if (e_running_state_error == tunnel_process.running_state) {
         title = QStringLiteral("´íÎó");
+        icon = QSystemTrayIcon::Critical;
     } else {
         return;
     }
 
     QString message = "";
     message += QString::number(tunnel_process.tunnel_item_info.tunnel_id) + " " + tunnel_process.tunnel_item_info.name + " " + title;
-    m_system_tray_icon->showMessage(title, message);
+    m_system_tray_icon->showMessage(title, message, icon);
 }
