@@ -12,12 +12,19 @@ const QString uri_get_tunnels = "launcher/get_tunnels?";
 const QString uri_create_tunnel = "launcher/create_tunnel?";
 const QString uri_delete_tunnel = "launcher/delete_tunnel?";
 
-const QString invalid_symbol = "-";
+const QString invalid_symbol = "--";
 
 using NetworkState = enum {
     e_network_success = 0,
     e_network_fail = e_network_success + 1,
     e_network_handle_cancel = e_network_fail + 1
+};
+
+using RunningStatus = enum {
+    e_running_status_none = 0,
+    e_running_status_info = e_running_status_none + 1,
+    e_running_status_warnning = e_running_status_info + 1,
+    e_running_status_error = e_running_status_warnning + 1
 };
 
 using NodeItemInfo = struct {
@@ -58,6 +65,7 @@ using TunnelProcess = struct {
     QProcess* process;
     QString startup_time;
     QString log_text;
+    RunningStatus running_status;
     TunnelItemInfo tunnel_item_info;
 };
 

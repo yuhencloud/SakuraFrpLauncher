@@ -3,6 +3,7 @@
 #include <QBoxLayout>
 #include <QTextEdit>
 #include <QLabel>
+#include <QScrollBar>
 
 SFLLogDlg::SFLLogDlg(QWidget *parent) :
     SFLDialogBase(parent),
@@ -38,6 +39,7 @@ void SFLLogDlg::UpdateLog(
     m_tunnel_process = tunnel_process;
     m_info_label->setText(QStringLiteral("ËíµÀID:") + QString::number(tunnel_process.tunnel_item_info.tunnel_id) + "\t" + QStringLiteral("ËíµÀ£º") + tunnel_process.tunnel_item_info.name);
     m_log_text_edit->setText(tunnel_process.log_text);
+    m_log_text_edit->verticalScrollBar()->setValue(m_log_text_edit->verticalScrollBar()->maximum());
 }
 
 int SFLLogDlg::TunnelID(

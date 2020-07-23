@@ -21,7 +21,7 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     m_check_log_mapper(nullptr),
     m_log_dlg(nullptr)
 {
-    this->setColumnCount(10);
+    this->setColumnCount(11);
     QStringList header_label_list;
     header_label_list
         << QStringLiteral("序号")
@@ -32,6 +32,7 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
         << QStringLiteral("描述")
         << QStringLiteral("启动时间")
         << QStringLiteral("运行时间")
+        << QStringLiteral("进程状态")
         << QStringLiteral("运行状态")
         << QStringLiteral("操作");
     this->setHorizontalHeaderLabels(header_label_list);
@@ -160,13 +161,20 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         running_time_item->setFlags(running_time_item->flags() & (~Qt::ItemIsEditable));
         this->setItem(i, col_index++, running_time_item);
 
-        QTableWidgetItem* status_item = new QTableWidgetItem();
-        status_item->setText(QStringLiteral("停止"));
-        status_item->setTextColor(QColor(Qt::red));
-        status_item->setToolTip(QStringLiteral("停止"));
-        status_item->setTextAlignment(Qt::AlignCenter);
-        status_item->setFlags(status_item->flags() & (~Qt::ItemIsEditable));
-        this->setItem(i, col_index++, status_item);
+        QTableWidgetItem* process_status_item = new QTableWidgetItem();
+        process_status_item->setText(QStringLiteral("停止"));
+        process_status_item->setTextColor(Qt::red);
+        process_status_item->setToolTip(QStringLiteral("停止"));
+        process_status_item->setTextAlignment(Qt::AlignCenter);
+        process_status_item->setFlags(process_status_item->flags() & (~Qt::ItemIsEditable));
+        this->setItem(i, col_index++, process_status_item);
+
+        QTableWidgetItem* running_status = new QTableWidgetItem();
+        running_status->setText(invalid_symbol);
+        running_status->setToolTip(invalid_symbol);
+        running_status->setTextAlignment(Qt::AlignCenter);
+        running_status->setFlags(running_status->flags() & (~Qt::ItemIsEditable));
+        this->setItem(i, col_index++, running_status);
 
         QWidget* container_widget = new QWidget();
         QHBoxLayout* container_widget_h_layout = new QHBoxLayout(container_widget);
@@ -230,11 +238,13 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
     } else if (QProcess::Starting == m_tunnel_process_hash[tunnel_id].process->state()) {
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
     }
     UpdateTable();
 }
@@ -256,10 +266,24 @@ void SFLTunnelTableWidget::OnProcessOutput(
             break;
         }
     }
-    m_tunnel_process_hash[tunnel_id].log_text += process->readAll();
+    QString text = process->readAll();
+    m_tunnel_process_hash[tunnel_id].log_text += text;
     if (m_log_dlg->isVisible() && m_log_dlg->TunnelID() == tunnel_id) {
         m_log_dlg->UpdateLog(m_tunnel_process_hash[tunnel_id]);
     }
+
+    // 判断输出日志级别
+    if (-1 != text.indexOf(" [I] ") && -1 != text.indexOf("start proxy success")) {
+        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_info;
+    } else if (-1 != text.indexOf(" [W] ")) {
+        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_warnning;
+    } else if (-1 != text.indexOf(" [E] ")) {
+        m_tunnel_process_hash[tunnel_id].running_status = e_running_status_error;
+    }
+//     else {
+//         m_tunnel_process_hash[tunnel_id].running_status = e_running_status_none;
+//     }
+    UpdateTable();
 }
 
 void SFLTunnelTableWidget::OnProcessStateChanged(
@@ -316,10 +340,24 @@ void SFLTunnelTableWidget::UpdateTable(
 
         if (QProcess::Running != m_tunnel_process_hash[tunnel_id].process->state()) {
             this->item(i, 8)->setText(QStringLiteral("停止"));
-            this->item(i, 8)->setTextColor(QColor(Qt::red));
+            this->item(i, 8)->setTextColor(Qt::red);
         } else {
             this->item(i, 8)->setText(QStringLiteral("运行"));
-            this->item(i, 8)->setTextColor(QColor(Qt::green));
+            this->item(i, 8)->setTextColor(Qt::green);
+        }
+
+        if (e_running_status_none == m_tunnel_process_hash[tunnel_id].running_status) {
+            this->item(i, 9)->setText(invalid_symbol);
+            this->item(i, 9)->setTextColor(Qt::black);
+        } else if (e_running_status_info == m_tunnel_process_hash[tunnel_id].running_status) {
+            this->item(i, 9)->setText(QStringLiteral("正常"));
+            this->item(i, 9)->setTextColor(Qt::green);
+        } else if (e_running_status_warnning == m_tunnel_process_hash[tunnel_id].running_status) {
+            this->item(i, 9)->setText(QStringLiteral("警告"));
+            this->item(i, 9)->setTextColor(QColor(255, 130, 50));
+        } else if (e_running_status_error == m_tunnel_process_hash[tunnel_id].running_status) {
+            this->item(i, 9)->setText(QStringLiteral("错误"));
+            this->item(i, 9)->setTextColor(Qt::red);
         }
     }
 }
