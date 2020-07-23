@@ -1,0 +1,27 @@
+/**********************************************************SFLLoadingDlg**********************************************************/
+QDialog#SFLLoadingDlg{
+	background: #ffffff;
+}
+
+/**********************************************************SFLTunnelTableWidget**********************************************************/
+QPushButton#SFLTunnelTableWidget_start_stop_btn,
+QPushButton#SFLTunnelTableWidget_start_stop_btn:hover,
+QPushButton#SFLTunnelTableWidget_start_stop_btn:pressed
+{
+	border: none;
+	background-color: transparent;
+	image: url(:/Resources/images/start-stop-btn-n.png);
+}
+QPushButton#SFLTunnelTableWidget_start_stop_btn:checked
+{
+	image: url(:/Resources/images/start-stop-btn-c.png);
+}
+
+QPushButton#SFLTunnelTableWidget_check_log_btn,
+QPushButton#SFLTunnelTableWidget_check_log_btn:hover,
+QPushButton#SFLTunnelTableWidget_check_log_btn:pressed
+{
+	border: none;
+	background-color: transparent;
+	image: url(:/Resources/images/log-btn-n.png);
+}

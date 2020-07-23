@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/images/icon.ico</file>
+        <file>Resources/images/sfl-inprogress.gif</file>
+        <file>Resources/qss/SakuraFrpLauncher.qss</file>
+        <file>Resources/images/log-btn-n.png</file>
+        <file>Resources/images/start-stop-btn-c.png</file>
+        <file>Resources/images/start-stop-btn-n.png</file>
+    </qresource>
+</RCC>

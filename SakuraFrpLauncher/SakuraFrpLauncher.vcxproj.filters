@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{41e43b3d-2b46-4642-bd73-6cb21405a617}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{23c42589-5d4a-4f25-9cd1-fd431d96368c}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher">
+      <UniqueIdentifier>{a12c2296-761e-44c4-8754-e945461d1a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools">
+      <UniqueIdentifier>{3ade06e7-7f7e-4843-b984-e957594ed992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLNetworkMgr">
+      <UniqueIdentifier>{643280cd-ea8c-4d35-b061-39dcd74011ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLNetworkMgr\SFLNetworkAccessManager">
+      <UniqueIdentifier>{da894fbc-5b73-440d-a8c1-c5d27726dee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLDBMgr">
+      <UniqueIdentifier>{3d0d886d-83f9-4ce0-be5e-3a32149f76f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLJsonHelper">
+      <UniqueIdentifier>{c4ed0093-62ab-4a42-84f3-9df71723a73d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLDialogBase">
+      <UniqueIdentifier>{7cfc27cf-c3dd-466d-b7c9-fba19266336f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLLoadingDlg">
+      <UniqueIdentifier>{616f8367-e72e-4e86-bf2a-8bee1d4414ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SFLTools\SFLGlobalMgr">
+      <UniqueIdentifier>{73fda94a-2071-42b3-bcea-b20783598fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget">
+      <UniqueIdentifier>{1bb2425f-1947-429a-b159-8dcbefe22e53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget">
+      <UniqueIdentifier>{f8d56c80-58e3-4e85-8b10-a2556c3c23b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg">
+      <UniqueIdentifier>{add32e34-db75-4cbc-91a7-424d872df037}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SakuraFrpLauncher.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SakuraFrpLauncher.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_SakuraFrpLauncher.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraFrpLauncher.cpp">
+      <Filter>SakuraFrpLauncher</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLNetworkAccessManager.cpp">
+      <Filter>SFLTools\SFLNetworkMgr\SFLNetworkAccessManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLNetworkAccessManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLNetworkAccessManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLNetworkMgr.cpp">
+      <Filter>SFLTools\SFLNetworkMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLNetworkMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLNetworkMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLDBMgr.cpp">
+      <Filter>SFLTools\SFLDBMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLDBMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLDBMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLJsonHelper.cpp">
+      <Filter>SFLTools\SFLJsonHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLJsonHelper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLJsonHelper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLDialogBase.cpp">
+      <Filter>SFLTools\SFLDialogBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLDialogBase.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLDialogBase.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLLoadingDlg.cpp">
+      <Filter>SFLTools\SFLLoadingDlg</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLLoadingDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLLoadingDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLGlobalMgr.cpp">
+      <Filter>SFLTools\SFLGlobalMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLGlobalMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLGlobalMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLGroupTabWidget.cpp">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLGroupTabWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLGroupTabWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLTunnelTableWidget.cpp">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelTableWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLTunnelTableWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLLogDlg.cpp">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLLogDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLLogDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="SakuraFrpLauncher.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SakuraFrpLauncher.h">
+      <Filter>SakuraFrpLauncher</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLNetworkAccessManager.h">
+      <Filter>SFLTools\SFLNetworkMgr\SFLNetworkAccessManager</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLNetworkMgr.h">
+      <Filter>SFLTools\SFLNetworkMgr</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLDBMgr.h">
+      <Filter>SFLTools\SFLDBMgr</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLJsonHelper.h">
+      <Filter>SFLTools\SFLJsonHelper</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLDialogBase.h">
+      <Filter>SFLTools\SFLDialogBase</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLLoadingDlg.h">
+      <Filter>SFLTools\SFLLoadingDlg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLGlobalMgr.h">
+      <Filter>SFLTools\SFLGlobalMgr</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLGroupTabWidget.h">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLTunnelTableWidget.h">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLLogDlg.h">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SakuraFrpLauncher.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\icon.ico" />
+  </ItemGroup>
+</Project>
