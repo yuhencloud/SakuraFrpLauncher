@@ -25,3 +25,8 @@ QPushButton#SFLTunnelTableWidget_check_log_btn:pressed
 	background-color: transparent;
 	image: url(:/Resources/images/log-btn-n.png);
 }
+
+/**********************************************************SFLLogDlg**********************************************************/
+QTextEdit#SFLLogDlg_log_text_edit{
+	background-color:#000000;
+}

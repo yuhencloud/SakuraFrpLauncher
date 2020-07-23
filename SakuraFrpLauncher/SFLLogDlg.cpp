@@ -17,8 +17,8 @@ SFLLogDlg::SFLLogDlg(QWidget *parent) :
     m_info_label->setText("");
 
     m_log_text_edit = new QTextEdit(this);
+    m_log_text_edit->setObjectName("SFLLogDlg_log_text_edit");
     m_log_text_edit->setTextColor(QColor(Qt::white));
-    m_log_text_edit->setStyleSheet("QTextEdit{background-color:#000000;}");
     m_log_text_edit->setAcceptRichText(true);
     m_log_text_edit->setUndoRedoEnabled(false);
     m_log_text_edit->setReadOnly(true);
