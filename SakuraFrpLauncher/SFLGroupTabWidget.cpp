@@ -13,7 +13,7 @@ SFLGroupTabWidget::~SFLGroupTabWidget()
 
 }
 
-void SFLGroupTabWidget::InitGroupTabWidget(
+void SFLGroupTabWidget::InitTabWidget(
 ) {
     // 当前服务器的节点列表
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();

@@ -47,9 +47,12 @@ private:
     QWidget* InitLoginWidget(
     );
 
-    void InitTunnelsGroup(
+    void InitTunnels(
         QVector<NodeItemInfo> node_item_info_list,
         QVector<TunnelItemInfo> tunnel_item_info_list
+    );
+
+    void InitTabWidget(
     );
 
 private slots:

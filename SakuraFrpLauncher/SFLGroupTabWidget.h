@@ -15,7 +15,7 @@ public:
 
 public:
 
-    void InitGroupTabWidget(
+    void InitTabWidget(
     );
 
 private:

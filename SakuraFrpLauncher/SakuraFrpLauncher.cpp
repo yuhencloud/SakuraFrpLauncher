@@ -54,7 +54,7 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel, auto_get_tunnel);
     if ("1" == auto_get_tunnel) {
         // 自动登录
-        OnLoginBtnClicked();
+        InitTabWidget();
 
         // 启动timer
         QString auto_get_tunnel_time = "";
@@ -216,18 +216,23 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
 
 void SakuraFrpLauncher::OnLoginBtnClicked(
 ) {
-    QString sfl_token = m_cipher_line_edit->text();
-    if (sfl_token.isEmpty()) {
+    SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
+    login_dlg->SetText(QStringLiteral("正在获取隧道列表..."));
+    login_dlg->show();
+    InitTabWidget();
+    login_dlg->hide();
+}
+
+void SakuraFrpLauncher::InitTabWidget(
+) {
+    QString token = m_cipher_line_edit->text();
+    if (token.isEmpty()) {
         QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("密钥不能为空"), QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
 
-    SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
-    login_dlg->SetText(QStringLiteral("正在登录..."));
-    login_dlg->show();
-
     QString node_url = sakura_frp_domain + uri_get_nodes;
-    node_url += "token=" + sfl_token;
+    node_url += "token=" + token;
     QString node_retsult = "";
     SFLNetworkMgr().GetData(node_url, node_retsult, 20000);
 
@@ -235,12 +240,10 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
     NodeInfo node_info;
     bool node_suc = SFLJsonHelper().ParseNodesStringToStruct(node_retsult, node_info);
     if (!node_suc) {
-        login_dlg->hide();
         QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("网络或服务器错误，请稍后重试"), QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
     if (!node_info.success) {
-        login_dlg->hide();
         QMessageBox::warning(this, QStringLiteral("提示"), node_info.message, QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
@@ -248,18 +251,14 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
 
     // token入库
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-    SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_token, sfl_token);
+    SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_token, token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
     // 获取隧道列表
-    login_dlg->SetText(QStringLiteral("登录成功，正在获取隧道列表..."));
-
     QString tunnel_url = sakura_frp_domain + uri_get_tunnels;
-    tunnel_url += "token=" + sfl_token;
+    tunnel_url += "token=" + token;
     QString tunnel_retsult = "";
     SFLNetworkMgr().GetData(tunnel_url, tunnel_retsult, 20000);
-
-    login_dlg->hide();
 
     // 禁用输入框，不再允许修改密钥
     m_cipher_line_edit->setDisabled(true);
@@ -277,14 +276,14 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
     }
     SFLGlobalMgr::GetInstance()->SetTunnelInfo(tunnel_info);
 
-    // 初始化隧道和组数据库
-    InitTunnelsGroup(node_info.node_item_info_list, tunnel_info.tunnel_item_info_list);
+    // 初始化隧道数据库
+    InitTunnels(node_info.node_item_info_list, tunnel_info.tunnel_item_info_list);
 
     // 初始化隧道组tab
-    m_group_tab_widget->InitGroupTabWidget();
+    m_group_tab_widget->InitTabWidget();
 }
 
-void SakuraFrpLauncher::InitTunnelsGroup(
+void SakuraFrpLauncher::InitTunnels(
     QVector<NodeItemInfo> node_item_info_list,
     QVector<TunnelItemInfo> tunnel_item_info_list
 ) {
@@ -381,5 +380,5 @@ void SakuraFrpLauncher::OnTrayMessageCheckBoxStateChanged(
 
 void SakuraFrpLauncher::OnAutoGetTunnerTimeout(
 ) {
-    OnLoginBtnClicked();
+    InitTabWidget();
 }
