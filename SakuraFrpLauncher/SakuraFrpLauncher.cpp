@@ -122,7 +122,13 @@ void SakuraFrpLauncher::changeEvent(
 void SakuraFrpLauncher::closeEvent(
     QCloseEvent* e
 ) {
-    SFLDialogBase::closeEvent(e);
+    if (QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("关闭程序，所有隧道都会停止，是否关闭程序"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+        ;
+    } else {
+        e->ignore();
+        return;
+    }
+    QDialog::closeEvent(e);
 }
 
 QWidget* SakuraFrpLauncher::InitLoginWidget(
