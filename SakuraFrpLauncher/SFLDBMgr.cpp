@@ -73,8 +73,12 @@ bool SFLDBMgr::OpenLocalDB(
                         node_name varchar, \
                         node_accept_new integer)");
 
-    query.exec("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('sfl_version', '1.0.0')");
-    query.exec("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('sfl_token', '')");
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '1.0.0')").arg(sfl_version));
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '')").arg(sfl_token));
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '1')").arg(sfl_auto_get_tunnel));
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '1')").arg(sfl_auto_start_process));
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '1')").arg(sfl_tray_message));
+    query.exec(QString("INSERT INTO sfl_base(sfl_key, sfl_value) VALUES('%1', '180000')").arg(sfl_auto_get_tunnel_time));
 
     if (!db.commit()) {
         return false;

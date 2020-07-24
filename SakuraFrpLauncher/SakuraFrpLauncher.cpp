@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QCheckBox>
+#include <QTimer>
 
 #include "SFLNetworkMgr.h"
 #include "SFLDBMgr.h"
@@ -17,13 +18,13 @@
 SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     : SFLDialogBase(parent),
     m_system_tray_icon(nullptr),
-    m_line_edit(nullptr),
+    m_cipher_line_edit(nullptr),
     m_group_tab_widget(nullptr)
 {
     this->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
     QString version = "";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-    SFLDBMgr::GetInstance()->GetValueByKey(db, "sfl_version", version);
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
     this->setWindowTitle(QStringLiteral("SakuraFrpLauncher ") + version);
     this->setMinimumSize(750, 400);
@@ -44,6 +45,23 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     SFLGlobalMgr::GetInstance()->SetLoadingDlg(new SFLLoadingDlg());
 
     SFLGlobalMgr::GetInstance()->SetLauncher(this);
+
+    m_auto_get_tunnel_timer = new QTimer(this);
+    connect(m_auto_get_tunnel_timer, SIGNAL(timeout()), this, SLOT(OnAutoGetTunnerTimeout()));
+
+    QString auto_get_tunnel = "0";
+    db = SFLDBMgr::GetInstance()->GetSqlConn();
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel, auto_get_tunnel);
+    if ("1" == auto_get_tunnel) {
+        // 自动登录
+        OnLoginBtnClicked();
+
+        // 启动timer
+        QString auto_get_tunnel_time = "";
+        SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel_time, auto_get_tunnel_time);
+        m_auto_get_tunnel_timer->start(auto_get_tunnel_time.toInt());
+    }
+    SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 }
 
 SakuraFrpLauncher::~SakuraFrpLauncher()
@@ -136,38 +154,69 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     QWidget* login_widget = new QWidget(this);
     QHBoxLayout* login_widget_h_layout = new QHBoxLayout(login_widget);
     login_widget_h_layout->setContentsMargins(QMargins(0, 0, 0, 0));
-    m_line_edit = new QLineEdit(login_widget);
-    m_line_edit->setPlaceholderText(QStringLiteral("请输入登录密钥"));
-    m_line_edit->setEchoMode(QLineEdit::Password);
+    m_cipher_line_edit = new QLineEdit(login_widget);
+    m_cipher_line_edit->setPlaceholderText(QStringLiteral("请输入登录密钥"));
+    m_cipher_line_edit->setEchoMode(QLineEdit::Password);
 
     QPushButton* login_btn = new QPushButton(login_widget);
     login_btn->setText(QStringLiteral("获取隧道"));
     connect(login_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnLoginBtnClicked);
 
+    m_auto_get_tunnel_check_box = new QCheckBox(login_widget);
+    m_auto_get_tunnel_check_box->setText(QStringLiteral("自动获取隧道"));
+    QString auto_get_tunnel = "0";
+    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel, auto_get_tunnel);
+    if ("1" == auto_get_tunnel) {
+        m_auto_get_tunnel_check_box->setChecked(true);
+    } else {
+        m_auto_get_tunnel_check_box->setChecked(false);
+    }
+    connect(m_auto_get_tunnel_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoGetTunnelCheckBoxStateChanged(int)));
+
+    m_auto_start_process_check_box = new QCheckBox(login_widget);
+    m_auto_start_process_check_box->setText(QStringLiteral("自动启动隧道"));
+    QString auto_start_process = "0";
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_start_process, auto_start_process);
+    if ("1" == auto_start_process) {
+        m_auto_start_process_check_box->setChecked(true);
+    } else {
+        m_auto_start_process_check_box->setChecked(false);
+    }
+    connect(m_auto_start_process_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoStartProcessCheckBoxStateChanged(int)));
+
     m_tray_message_check_box = new QCheckBox(login_widget);
     m_tray_message_check_box->setText(QStringLiteral("托盘通知"));
-    m_tray_message_check_box->setChecked(true);
+    QString tray_message = "0";
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_tray_message, tray_message);
+    if ("1" == tray_message) {
+        m_tray_message_check_box->setChecked(true);
+    } else {
+        m_tray_message_check_box->setChecked(false);
+    }
+    connect(m_tray_message_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnTrayMessageCheckBoxStateChanged(int)));
 
-    login_widget_h_layout->addWidget(m_line_edit);
+    login_widget_h_layout->addWidget(m_cipher_line_edit);
     login_widget_h_layout->addWidget(login_btn);
     login_widget_h_layout->addStretch();
+    login_widget_h_layout->addWidget(m_auto_get_tunnel_check_box);
+    login_widget_h_layout->addWidget(m_auto_start_process_check_box);
     login_widget_h_layout->addWidget(m_tray_message_check_box);
 
     login_widget->setLayout(login_widget_h_layout);
 
     // 读取存储的token
     QString token = "";
-    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-    SFLDBMgr::GetInstance()->GetValueByKey(db, "sfl_token", token);
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
-    m_line_edit->setText(token);
+    m_cipher_line_edit->setText(token);
 
     return login_widget;
 }
 
 void SakuraFrpLauncher::OnLoginBtnClicked(
 ) {
-    QString sfl_token = m_line_edit->text();
+    QString sfl_token = m_cipher_line_edit->text();
     if (sfl_token.isEmpty()) {
         QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("密钥不能为空"), QMessageBox::Ok, QMessageBox::Ok);
         return;
@@ -199,7 +248,7 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
 
     // token入库
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-    SFLDBMgr::GetInstance()->UpdateValueByKey(db, "sfl_token", sfl_token);
+    SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_token, sfl_token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
     // 获取隧道列表
@@ -211,6 +260,9 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
     SFLNetworkMgr().GetData(tunnel_url, tunnel_retsult, 20000);
 
     login_dlg->hide();
+
+    // 禁用输入框，不再允许修改密钥
+    m_cipher_line_edit->setDisabled(true);
 
     // 进行json解析
     TunnelInfo tunnel_info;
@@ -256,7 +308,11 @@ void SakuraFrpLauncher::InitTunnelsGroup(
 void SakuraFrpLauncher::ShowTrayMessage(
     const TunnelProcess& tunnel_process
 ) {
-    if (!m_tray_message_check_box->isChecked()) {
+    QString tray_message = "0";
+    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_tray_message, tray_message);
+    SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    if (tray_message != "1") {
         return;
     }
 
@@ -275,4 +331,55 @@ void SakuraFrpLauncher::ShowTrayMessage(
     QString message = "";
     message += QString::number(tunnel_process.tunnel_item_info.tunnel_id) + " " + tunnel_process.tunnel_item_info.tunnel_name + " " + title;
     m_system_tray_icon->showMessage(title, message, icon);
+}
+
+void SakuraFrpLauncher::OnAutoGetTunnelCheckBoxStateChanged(
+    int checked
+) {
+    if (checked == Qt::Checked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_auto_get_tunnel, "1");
+        QString auto_get_tunnel_time = "";
+        SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel_time, auto_get_tunnel_time);
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+        m_auto_get_tunnel_timer->start(auto_get_tunnel_time.toInt());
+    } else if (checked == Qt::Unchecked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_auto_get_tunnel, "0");
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+        m_auto_get_tunnel_timer->stop();
+    }
+}
+
+void SakuraFrpLauncher::OnAutoStartProcessCheckBoxStateChanged(
+    int checked
+) {
+    if (checked == Qt::Checked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_auto_start_process, "1");
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    } else if (checked == Qt::Unchecked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_auto_start_process, "0");
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    }
+}
+
+void SakuraFrpLauncher::OnTrayMessageCheckBoxStateChanged(
+    int checked
+) {
+    if (checked == Qt::Checked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_tray_message, "1");
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    } else if (checked == Qt::Unchecked) {
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_tray_message, "0");
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    }
+}
+
+void SakuraFrpLauncher::OnAutoGetTunnerTimeout(
+) {
+    OnLoginBtnClicked();
 }

@@ -12,6 +12,13 @@ const QString uri_get_tunnels = "launcher/get_tunnels?";
 const QString uri_create_tunnel = "launcher/create_tunnel?";
 const QString uri_delete_tunnel = "launcher/delete_tunnel?";
 
+const QString sfl_version = "sfl_version";
+const QString sfl_token = "sfl_token";
+const QString sfl_auto_get_tunnel = "sfl_auto_get_tunnel";
+const QString sfl_auto_start_process = "sfl_auto_start_process";
+const QString sfl_tray_message = "sfl_tray_message";
+const QString sfl_auto_get_tunnel_time = "sfl_auto_get_tunnel_time";
+
 const QString invalid_symbol = "--";
 
 using NetworkState = enum {

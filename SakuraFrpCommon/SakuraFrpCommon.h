@@ -21,6 +21,9 @@ public:
     static QString NextUuid(
     );
 
+    static bool Is64BitSystem(
+    );
+
 private:
 
 };

@@ -13,6 +13,7 @@
 #include "SFLDBMgr.h"
 #include "SFLGlobalMgr.h"
 #include "SFLLogDlg.h"
+#include "SakuraFrpCommon.h"
 
 SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     : QTableWidget(parent),
@@ -272,11 +273,18 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
     if (QProcess::NotRunning == m_tunnel_process_map[tunnel_id].process->state()) {
         QString token = "";
         QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-        SFLDBMgr::GetInstance()->GetValueByKey(db, "sfl_token", token);
+        SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
         SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
+        QString exe_name = "frpc_windows_386.exe";
+        if (!SakuraFrpCommon::Is64BitSystem()) {
+            exe_name = "frpc_windows_386.exe";
+        } else {
+            exe_name = "frpc_windows_amd64.exe";
+        }
+
         QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-        QString start_parameter = "\"" + app_dir_path + "\\frpc_windows_amd64.exe" + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
+        QString start_parameter = "\"" + app_dir_path + "\\" + exe_name + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
         m_tunnel_process_map[tunnel_id].process->start(start_parameter);
         m_tunnel_process_map[tunnel_id].process->waitForStarted();
         m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");

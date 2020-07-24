@@ -12,6 +12,7 @@ class QSystemTrayIcon;
 class QLineEdit;
 class QCheckBox;
 class SFLGroupTabWidget;
+class QTimer;
 
 class SakuraFrpLauncher : public SFLDialogBase
 {
@@ -66,12 +67,30 @@ private slots:
     void OnLoginBtnClicked(
     );
 
+    void OnAutoGetTunnelCheckBoxStateChanged(
+        int checked
+    );
+
+    void OnAutoStartProcessCheckBoxStateChanged(
+        int checked
+    );
+
+    void OnTrayMessageCheckBoxStateChanged(
+        int checked
+    );
+
+    void OnAutoGetTunnerTimeout(
+    );
+
 private:
 
     QSystemTrayIcon* m_system_tray_icon;
-    QLineEdit* m_line_edit;
+    QLineEdit* m_cipher_line_edit;
+    QCheckBox* m_auto_get_tunnel_check_box;
+    QCheckBox* m_auto_start_process_check_box;
     QCheckBox* m_tray_message_check_box;
     SFLGroupTabWidget* m_group_tab_widget;
+    QTimer* m_auto_get_tunnel_timer;
 
 };
 
