@@ -26,7 +26,7 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     SFLDBMgr::GetInstance()->GetValueByKey(db, "sfl_version", version);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
     this->setWindowTitle(QStringLiteral("SakuraFrpLauncher ") + version);
-    this->setMinimumSize(820, 400);
+    this->setMinimumSize(750, 400);
 
     // 初始化登录
     QWidget* login_widget = InitLoginWidget();
@@ -220,7 +220,7 @@ void SakuraFrpLauncher::OnLoginBtnClicked(
     SFLGlobalMgr::GetInstance()->SetTunnelInfo(tunnel_info);
 
     // 初始化隧道和组数据库
-    InitTunnelsGroup(node_info.data, tunnel_info.data);
+    InitTunnelsGroup(node_info.node_item_info_list, tunnel_info.tunnel_item_info_list);
 
     // 初始化隧道组tab
     m_group_tab_widget->InitGroupTabWidget();
@@ -230,64 +230,19 @@ void SakuraFrpLauncher::InitTunnelsGroup(
     QVector<NodeItemInfo> node_item_info_list,
     QVector<TunnelItemInfo> tunnel_item_info_list
 ) {
-    QVector<GroupItemInfo> group_item_info_list;
-    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     for (int i = 0; i < tunnel_item_info_list.size(); ++i) {
-        TunnelItemInfo tunnel_item_info = tunnel_item_info_list.at(i);
         tunnel_item_info_list[i].tunnel_index = i;
-        // 查找
-        QString group_id = "";
-        SFLDBMgr::GetInstance()->GetGroupIDByTunnelID(db, tunnel_item_info.tunnel_id, group_id);
-        if (group_id.isEmpty()) {
-            // 查找所在结点组ID和组名
-            for (auto node_item_info : node_item_info_list) {
-                if (node_item_info.id == tunnel_item_info.node) {
-                    tunnel_item_info_list[i].group_id = node_item_info.group_id;
-
-                    GroupItemInfo group_item_info;
-                    group_item_info.group_id = node_item_info.group_id;
-                    group_item_info.name = node_item_info.name;
-                    bool added = false;
-                    for (auto group_item : group_item_info_list) {
-                        if (group_item.group_id == group_item_info.group_id && 
-                            group_item.name == group_item_info.name
-                        ) {
-                            // 已经增加过
-                            added = true;
-                            break;
-                        }
-                    }
-                    if (!added) {
-                        group_item_info_list.push_back(group_item_info);
-                    }
-                    break;
-                }
-            }
-        } else {
-            tunnel_item_info_list[i].group_id = group_id;
-
-            GroupItemInfo group_item_info;
-            SFLDBMgr::GetInstance()->GetGroupInfoByGroupID(db, group_id, group_item_info);
-            bool added = false;
-            for (auto group_item : group_item_info_list) {
-                if (group_item.group_id == group_item_info.group_id &&
-                    group_item.name == group_item_info.name
-                ) {
-                    // 已经增加过
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                group_item_info_list.push_back(group_item_info);
-            }
-        }
+		for (auto node_item_info : node_item_info_list) {
+			if (node_item_info.node_id == tunnel_item_info_list[i].node_item_info.node_id) {
+				tunnel_item_info_list[i].node_item_info.node_name = node_item_info.node_name;
+                tunnel_item_info_list[i].node_item_info.node_accept_new = node_item_info.node_accept_new;
+			}
+		}
     }
-
+	QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->BeginTransaction(db);
-    SFLDBMgr::GetInstance()->DeleteGroup(db);
     SFLDBMgr::GetInstance()->DeleteTunnel(db);
-    SFLDBMgr::GetInstance()->InsertGroupAndTunnel(db, group_item_info_list, tunnel_item_info_list);
+    SFLDBMgr::GetInstance()->InsertTunnel(db, tunnel_item_info_list);
     SFLDBMgr::GetInstance()->EndTransaction(db);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 }
@@ -312,6 +267,6 @@ void SakuraFrpLauncher::ShowTrayMessage(
     }
 
     QString message = "";
-    message += QString::number(tunnel_process.tunnel_item_info.tunnel_id) + " " + tunnel_process.tunnel_item_info.name + " " + title;
+    message += QString::number(tunnel_process.tunnel_item_info.tunnel_id) + " " + tunnel_process.tunnel_item_info.tunnel_name + " " + title;
     m_system_tray_icon->showMessage(title, message, icon);
 }

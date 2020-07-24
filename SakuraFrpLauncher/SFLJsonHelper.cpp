@@ -5,8 +5,6 @@
 #include <QJsonArray>
 #include <QJsonValue>
 
-#include "SakuraFrpCommon.h"
-
 SFLJsonHelper::SFLJsonHelper()
     : QObject()
 {
@@ -44,11 +42,10 @@ bool SFLJsonHelper::ParseNodesStringToStruct(
         QJsonObject node_item_obj = node_item.toObject();
 
         NodeItemInfo node_item_info;
-        node_item_info.id = node_item_obj.take("id").toInt();
-        node_item_info.name = node_item_obj.take("name").toString();
-        node_item_info.accept_new = node_item_obj.take("accept_new").toBool();
-        node_item_info.group_id = SakuraFrpCommon::NextUuid();
-        node_info.data.push_back(node_item_info);
+        node_item_info.node_id = node_item_obj.take("id").toInt();
+        node_item_info.node_name = node_item_obj.take("name").toString();
+        node_item_info.node_accept_new = static_cast<int>(node_item_obj.take("accept_new").toBool());
+        node_info.node_item_info_list.push_back(node_item_info);
     }
 
     return true;
@@ -80,12 +77,12 @@ bool SFLJsonHelper::ParseTunnelsStringToStruct(
 
         TunnelItemInfo tunnel_item_info;
         tunnel_item_info.tunnel_id = tunnel_item_obj.take("id").toInt();
-        tunnel_item_info.name = tunnel_item_obj.take("name").toString();
-        tunnel_item_info.type = tunnel_item_obj.take("type").toString();
-        tunnel_item_info.node = tunnel_item_obj.take("node").toInt();
-        tunnel_item_info.description = tunnel_item_obj.take("description").toString();
+        tunnel_item_info.tunnel_name = tunnel_item_obj.take("name").toString();
+        tunnel_item_info.tunnel_type = tunnel_item_obj.take("type").toString();
+        tunnel_item_info.tunnel_description = tunnel_item_obj.take("description").toString();
+        tunnel_item_info.node_item_info.node_id = tunnel_item_obj.take("node").toInt();
 
-        tunnel_info.data.push_back(tunnel_item_info);
+        tunnel_info.tunnel_item_info_list.push_back(tunnel_item_info);
     }
 
     return true;

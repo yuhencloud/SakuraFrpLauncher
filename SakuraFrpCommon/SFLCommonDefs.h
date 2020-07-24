@@ -28,37 +28,30 @@ using RunningState = enum {
 };
 
 using NodeItemInfo = struct {
-    int id;
-    QString name;
-    bool accept_new;
-    QString group_id;
+    int node_id;
+    QString node_name;
+    int node_accept_new;
 };
 
 using NodeInfo = struct {
     bool success;
     QString message;
-    QVector<NodeItemInfo> data;
+    QVector<NodeItemInfo> node_item_info_list;
 };
 
 using TunnelItemInfo = struct {
     int tunnel_id;
     int tunnel_index;
-    QString name;
-    QString type;
-    int node;
-    QString description;
-    QString group_id;
+    QString tunnel_name;
+    QString tunnel_type;
+    QString tunnel_description;
+    NodeItemInfo node_item_info;
 };
 
 using TunnelInfo = struct {
     bool success;
     QString message;
-    QVector<TunnelItemInfo> data;
-};
-
-using GroupItemInfo = struct {
-    QString group_id;
-    QString name;
+    QVector<TunnelItemInfo> tunnel_item_info_list;
 };
 
 using TunnelProcess = struct {

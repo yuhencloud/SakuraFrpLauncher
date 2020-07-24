@@ -26,12 +26,12 @@ void SFLGroupTabWidget::InitGroupTabWidget(
     }
 
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-    QVector<GroupItemInfo> group_item_info_list;
-    SFLDBMgr::GetInstance()->GetGroupInfo(db, group_item_info_list);
-    for (auto group_item_info : group_item_info_list) {
+	QVector<NodeItemInfo> node_item_info_list;
+	SFLDBMgr::GetInstance()->GetNodeInfoList(db, node_item_info_list);
+	for (auto node_item_info : node_item_info_list) {
         SFLTunnelTableWidget* tunnel_table_widget = new SFLTunnelTableWidget(this);
-        tunnel_table_widget->InitTunnelTableWidget(group_item_info.group_id);
-        this->addTab(tunnel_table_widget, group_item_info.name);
+        tunnel_table_widget->InitTunnelTableWidget(node_item_info);
+        this->addTab(tunnel_table_widget, node_item_info.node_name);
     }
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 }

@@ -37,7 +37,7 @@ void SFLLogDlg::UpdateLog(
     const TunnelProcess& tunnel_process
 ) {
     m_tunnel_process = tunnel_process;
-    m_info_label->setText(QStringLiteral("隧道ID:") + QString::number(tunnel_process.tunnel_item_info.tunnel_id) + "\t" + QStringLiteral("隧道：") + tunnel_process.tunnel_item_info.name);
+    m_info_label->setText(QStringLiteral("隧道ID:") + QString::number(tunnel_process.tunnel_item_info.tunnel_id) + "\t" + QStringLiteral("隧道：") + tunnel_process.tunnel_item_info.tunnel_name);
     m_log_text_edit->setText(tunnel_process.log_text);
     m_log_text_edit->verticalScrollBar()->setValue(m_log_text_edit->verticalScrollBar()->maximum());
 }

@@ -58,40 +58,23 @@ public: // ½Ó¿Ú
         const QString& value
     );
 
-    bool GetGroupIDByTunnelID(
-        QSqlDatabase db,
-        const int& tunnel_id,
-        QString& group_id
-    );
-
-    bool GetGroupInfoByGroupID(
-        QSqlDatabase db,
-        const QString& group_id,
-        GroupItemInfo& group_item_info
-    );
-
-    bool DeleteGroup(
-        QSqlDatabase db
-    );
-
     bool DeleteTunnel(
         QSqlDatabase db
     );
 
-    bool InsertGroupAndTunnel(
+    bool InsertTunnel(
         QSqlDatabase db,
-        const QVector<GroupItemInfo>& group_item_info_list,
         const QVector<TunnelItemInfo>& tunnel_item_info_list
     );
 
-    bool GetGroupInfo(
+    bool GetNodeInfoList(
         QSqlDatabase db,
-        QVector<GroupItemInfo>& group_item_info_list
+		QVector<NodeItemInfo>& node_item_info_list
     );
 
-    bool GetTunnelInfoByGroupID(
+    bool GetTunnelInfoByNodeID(
         QSqlDatabase db,
-        const QString& group_id,
+        const int& node_id,
         QVector<TunnelItemInfo>& tunnel_item_info_list
     );
 

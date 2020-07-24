@@ -24,7 +24,7 @@ public:
 public:
 
     void InitTunnelTableWidget(
-        const QString& group_id
+        const NodeItemInfo& node_item_info
     );
 
 private:
@@ -54,6 +54,7 @@ private slots:
 
 private:
 
+    NodeItemInfo m_node_item_info;
     QTimer* m_timer;
     QSignalMapper* m_start_stop_mapper;
     QSignalMapper* m_check_log_mapper;
