@@ -122,7 +122,7 @@ void SakuraFrpLauncher::changeEvent(
 void SakuraFrpLauncher::closeEvent(
     QCloseEvent* e
 ) {
-    if (QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("关闭程序，所有隧道都会停止，是否关闭程序"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+    if (QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("确定要退出程序吗，退出后所有隧道都会关闭"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
         ;
     } else {
         e->ignore();
