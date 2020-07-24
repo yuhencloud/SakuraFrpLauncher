@@ -202,6 +202,23 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
     }
 }
 
+void SFLTunnelTableWidget::GetNodeItemInfo(
+    NodeItemInfo& node_item_info
+) {
+    node_item_info = m_node_item_info;
+}
+
+void SFLTunnelTableWidget::TerminateAllProcess(
+) {
+    for (auto key : m_tunnel_process_hash.keys()) {
+        m_tunnel_process_hash[key].process->terminate();
+        m_tunnel_process_hash[key].process->kill();
+        m_tunnel_process_hash[key].startup_time = invalid_symbol;
+        m_tunnel_process_hash[key].log_text = "";
+        m_tunnel_process_hash[key].running_state = e_running_state_none;
+    }
+}
+
 void SFLTunnelTableWidget::OnStartStopBtnClicked(
     const int& tunnel_id
 ) {

@@ -27,6 +27,13 @@ public:
         const NodeItemInfo& node_item_info
     );
 
+    void GetNodeItemInfo(
+        NodeItemInfo& node_item_info
+    );
+
+    void TerminateAllProcess(
+    );
+
 private:
 
     void UpdateTable(
