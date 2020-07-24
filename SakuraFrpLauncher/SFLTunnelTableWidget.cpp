@@ -197,6 +197,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].process = process;
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].log_text = "";
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_hash[tunnel_item_info.tunnel_id].running_state = e_running_state_none;
         m_tunnel_process_hash[tunnel_item_info.tunnel_id].tunnel_item_info = tunnel_item_info;
     }
 }
@@ -221,12 +222,14 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_hash[tunnel_id].log_text = "";
         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;
     } else if (QProcess::Starting == m_tunnel_process_hash[tunnel_id].process->state()) {
         m_tunnel_process_hash[tunnel_id].process->terminate();
         m_tunnel_process_hash[tunnel_id].process->kill();
         m_tunnel_process_hash[tunnel_id].process->waitForFinished();
         m_tunnel_process_hash[tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_hash[tunnel_id].log_text = "";
         m_tunnel_process_hash[tunnel_id].running_state = e_running_state_none;
     }
     UpdateTable();
