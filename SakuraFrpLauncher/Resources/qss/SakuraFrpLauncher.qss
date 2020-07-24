@@ -1,3 +1,7 @@
+/**********************************************************SakuraFrpLauncher**********************************************************/
+QLineEdit#SakuraFrpLauncher_cipher_line_edit{
+	lineedit-password-character:42;
+}
 /**********************************************************SFLLoadingDlg**********************************************************/
 QDialog#SFLLoadingDlg{
 	background: #ffffff;

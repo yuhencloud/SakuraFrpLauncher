@@ -155,6 +155,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     QHBoxLayout* login_widget_h_layout = new QHBoxLayout(login_widget);
     login_widget_h_layout->setContentsMargins(QMargins(0, 0, 0, 0));
     m_cipher_line_edit = new QLineEdit(login_widget);
+    m_cipher_line_edit->setObjectName("SakuraFrpLauncher_cipher_line_edit");
     m_cipher_line_edit->setPlaceholderText(QStringLiteral("ÇëÊäÈëµÇÂ¼ÃÜÔ¿"));
     m_cipher_line_edit->setEchoMode(QLineEdit::Password);
 
