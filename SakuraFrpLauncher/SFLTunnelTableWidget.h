@@ -42,6 +42,10 @@ private:
     void UpdateTable(
     );
 
+    void StartProcess(
+        const int& tunnel_id
+    );
+
 private slots:
 
     void OnStartStopBtnClicked(

@@ -137,6 +137,14 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
             m_tunnel_process_map[tunnel_item_info.tunnel_id].startup_time = invalid_symbol;
             m_tunnel_process_map[tunnel_item_info.tunnel_id].running_state = e_running_state_none;
             m_tunnel_process_map[tunnel_item_info.tunnel_id].tunnel_item_info = tunnel_item_info;
+
+            QString auto_start_process = "0";
+            QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+            SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_start_process, auto_start_process);
+            SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+            if ("1" == auto_start_process) {
+                StartProcess(tunnel_item_info.tunnel_id);
+            }
         }
     }
 
@@ -271,23 +279,8 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
 ) {
     QProcess::ProcessState state = m_tunnel_process_map[tunnel_id].process->state();
     if (QProcess::NotRunning == m_tunnel_process_map[tunnel_id].process->state()) {
-        QString token = "";
-        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
-        SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
-        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
-
-        QString exe_name = "frpc_windows_386.exe";
-        if (!SakuraFrpCommon::Is64BitSystem()) {
-            exe_name = "frpc_windows_386.exe";
-        } else {
-            exe_name = "frpc_windows_amd64.exe";
-        }
-
-        QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-        QString start_parameter = "\"" + app_dir_path + "\\" + exe_name + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
-        m_tunnel_process_map[tunnel_id].process->start(start_parameter);
+        StartProcess(tunnel_id);
         m_tunnel_process_map[tunnel_id].process->waitForStarted();
-        m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     } else if (QProcess::Running == m_tunnel_process_map[tunnel_id].process->state()) {
         m_tunnel_process_map[tunnel_id].process->terminate();
         m_tunnel_process_map[tunnel_id].process->kill();
@@ -311,6 +304,27 @@ void SFLTunnelTableWidget::OnCheckLogBtnClicked(
 ) {
     m_log_dlg->UpdateLog(m_tunnel_process_map[tunnel_id]);
     m_log_dlg->show();
+}
+
+void SFLTunnelTableWidget::StartProcess(
+    const int& tunnel_id
+) {
+    QString token = "";
+    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
+    SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+
+    QString exe_name = "frpc_windows_386.exe";
+    if (!SakuraFrpCommon::Is64BitSystem()) {
+        exe_name = "frpc_windows_386.exe";
+    } else {
+        exe_name = "frpc_windows_amd64.exe";
+    }
+
+    QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
+    QString start_parameter = "\"" + app_dir_path + "\\" + exe_name + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
+    m_tunnel_process_map[tunnel_id].process->start(start_parameter);
+    m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 }
 
 void SFLTunnelTableWidget::OnProcessOutput(
