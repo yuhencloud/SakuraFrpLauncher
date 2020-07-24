@@ -3,7 +3,7 @@
 #define SFLTUNNELTABLEWIDGET_H
 
 #include <QTableWidget>
-#include <QHash>
+#include <QMap>
 
 #include "SFLCommonDefs.h"
 
@@ -36,6 +36,9 @@ public:
 
 private:
 
+    void ClearTable(
+    );
+
     void UpdateTable(
     );
 
@@ -66,7 +69,7 @@ private:
     QSignalMapper* m_start_stop_mapper;
     QSignalMapper* m_check_log_mapper;
     SFLLogDlg* m_log_dlg;
-    QHash<int, TunnelProcess> m_tunnel_process_hash;
+    QMap<int, TunnelProcess> m_tunnel_process_map;
 
 };
 
