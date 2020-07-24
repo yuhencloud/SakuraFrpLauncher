@@ -135,7 +135,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     m_line_edit->setEchoMode(QLineEdit::Password);
 
     QPushButton* login_btn = new QPushButton(login_widget);
-    login_btn->setText(QStringLiteral("µ«¬º"));
+    login_btn->setText(QStringLiteral("ªÒ»°ÀÌµ¿"));
     connect(login_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnLoginBtnClicked);
 
     m_tray_message_check_box = new QCheckBox(login_widget);
