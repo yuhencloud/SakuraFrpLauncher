@@ -56,7 +56,7 @@ bool SFLDBMgr::OpenLocalDB(
     }
     db.transaction();
     // create table
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     bool success = false;
 
     success = query.exec("create table sfl_base( \
@@ -124,7 +124,7 @@ bool SFLDBMgr::GetValueByKey(
     const QString& key,
     QString& value
 ) {
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     query.exec(QString("SELECT sfl_value FROM sfl_base where sfl_key='%1'").arg(key));
     while (query.next()) {
         value = query.value(0).toString();
@@ -137,7 +137,7 @@ bool SFLDBMgr::UpdateValueByKey(
     const QString& key,
     const QString& value
 ) {
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     query.exec(QString("UPDATE sfl_base SET sfl_value='%1' WHERE sfl_key='%2'").arg(value).arg(key));
     return true;
 }
@@ -145,7 +145,7 @@ bool SFLDBMgr::UpdateValueByKey(
 bool SFLDBMgr::DeleteTunnel(
     QSqlDatabase db
 ) {
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     query.exec(QString("DELETE FROM sfl_tunnel"));
     return true;
 }
@@ -154,7 +154,7 @@ bool SFLDBMgr::InsertTunnel(
     QSqlDatabase db,
     const QVector<TunnelItemInfo>& tunnel_item_info_list
 ) {
-    QSqlQuery query_tunnel = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query_tunnel(db);
     query_tunnel.prepare("insert into sfl_tunnel values(?, ?, ?, ?, ?, ?, ?, ?)");
     QVector<QVariantList> tunnel_list;
     tunnel_list.resize(8);
@@ -184,7 +184,7 @@ bool SFLDBMgr::GetNodeInfoList(
     QSqlDatabase db,
 	QVector<NodeItemInfo>& node_item_info_list
 ) {
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     query.exec(QString("SELECT node_id, node_name, node_accept_new FROM sfl_tunnel GROUP BY node_id ORDER BY node_id"));
     while (query.next()) {
         NodeItemInfo node_item_info;
@@ -201,7 +201,7 @@ bool SFLDBMgr::GetTunnelInfoByNodeID(
     const int& node_id,
     QVector<TunnelItemInfo>& tunnel_item_info_list
 ) {
-    QSqlQuery query = QSqlQuery::QSqlQuery(db);
+    QSqlQuery query(db);
     query.exec(QString("SELECT tunnel_id, tunnel_index, tunnel_name, tunnel_type, tunnel_description FROM sfl_tunnel WHERE node_id=%1 ORDER BY tunnel_index").arg(node_id));
     while(query.next()) {
         TunnelItemInfo tunnel_item_info;

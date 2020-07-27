@@ -17,7 +17,6 @@ CONFIG(debug, debug|release) {
 
 QT += core sql network widgets gui
 CONFIG += debug_and_release
-DEFINES += WIN64 QT_DLL QT_WIDGETS_LIB
 INCLUDEPATH += ./GeneratedFiles \
     . \
     ./../QT_Build/include \
@@ -32,4 +31,6 @@ DEPENDPATH += .
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(SakuraFrpLauncher.pri)
+
+win32:DEFINES += WIN64 QT_DLL QT_WIDGETS_LIB
 win32:RC_FILE = SakuraFrpLauncher.rc

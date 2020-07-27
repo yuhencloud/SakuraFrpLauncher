@@ -10,13 +10,13 @@
 void AddLibraryPath(
 ) {
     QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-    qApp->addLibraryPath(app_dir_path + "\\plugins");
+    qApp->addLibraryPath(app_dir_path + "/plugins");
 }
 
 void CreateDataDB(
 ) {
     QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-    SFLDBMgr::GetInstance()->OpenLocalDB(app_dir_path + "\\data.db");
+    SFLDBMgr::GetInstance()->OpenLocalDB(app_dir_path + "/data.db");
 }
 
 void SetupQssFile(

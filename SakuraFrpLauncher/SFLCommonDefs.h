@@ -21,57 +21,57 @@ const QString sfl_auto_get_tunnel_time = "sfl_auto_get_tunnel_time";
 
 const QString invalid_symbol = "--";
 
-using NetworkState = enum {
+typedef enum {
     e_network_success = 0,
     e_network_fail = e_network_success + 1,
     e_network_handle_cancel = e_network_fail + 1
-};
+}NetworkState;
 
-using RunningState = enum {
+typedef enum {
     e_running_state_none = 0,
     e_running_state_info = e_running_state_none + 1,
     e_running_state_warnning = e_running_state_info + 1,
     e_running_state_error = e_running_state_warnning + 1
-};
+}RunningState;
 
-using MsgBoxType = enum{
+typedef enum{
     e_warning_type_yes_no = 0,
     e_information_type_ok = e_warning_type_yes_no + 1
-};
+}MsgBoxType;
 
-using NodeItemInfo = struct {
+typedef struct {
     int node_id;
     QString node_name;
     int node_accept_new;
-};
+}NodeItemInfo;
 
-using NodeInfo = struct {
+typedef struct {
     bool success;
     QString message;
     QVector<NodeItemInfo> node_item_info_list;
-};
+}NodeInfo;
 
-using TunnelItemInfo = struct {
+typedef struct {
     int tunnel_id;
     int tunnel_index;
     QString tunnel_name;
     QString tunnel_type;
     QString tunnel_description;
     NodeItemInfo node_item_info;
-};
+}TunnelItemInfo;
 
-using TunnelInfo = struct {
+typedef struct {
     bool success;
     QString message;
     QVector<TunnelItemInfo> tunnel_item_info_list;
-};
+}TunnelInfo;
 
-using TunnelProcess = struct {
+typedef struct {
     QProcess* process;
     QString startup_time;
     QString log_text;
     RunningState running_state;
     TunnelItemInfo tunnel_item_info;
-};
+}TunnelProcess;
 
 #endif // SFLCOMMONDEFS_H
