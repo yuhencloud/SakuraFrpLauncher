@@ -1,19 +1,19 @@
-#include "SakuraFrpCommon.h"
+#include "SFLUtility.h"
 
 #include <QUuid>
 #include <qt_windows.h>
 
-SakuraFrpCommon::SakuraFrpCommon()
+SFLUtility::SFLUtility()
 {
 
 }
 
-SakuraFrpCommon::~SakuraFrpCommon()
+SFLUtility::~SFLUtility()
 {
 
 }
 
-void SakuraFrpCommon::UnicodeTransfrom(
+void SFLUtility::UnicodeTransfrom(
     QString& str
 ) {
     do {
@@ -25,12 +25,12 @@ void SakuraFrpCommon::UnicodeTransfrom(
     } while (str.indexOf("\\u") != -1);
 }
 
-QString SakuraFrpCommon::NextUuid(
+QString SFLUtility::NextUuid(
 ) {
     return QUuid::createUuid().toString().remove("{").remove("}").remove("-");
 }
 
-bool SakuraFrpCommon::Is64BitSystem(
+bool SFLUtility::Is64BitSystem(
 ) {
     typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
     PGNSI pGNSI;

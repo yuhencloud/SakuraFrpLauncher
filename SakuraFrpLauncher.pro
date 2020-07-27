@@ -8,5 +8,4 @@ message("You are running qmake on a generated .pro file. This may not work!")
 
 
 TEMPLATE = subdirs
-SUBDIRS += SakuraFrpLauncher/SakuraFrpLauncher.pro \
-    SakuraFrpCommon/SakuraFrpCommon.pro
+SUBDIRS += SakuraFrpLauncher/SakuraFrpLauncher.pro

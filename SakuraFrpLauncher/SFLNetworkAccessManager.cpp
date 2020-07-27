@@ -3,7 +3,7 @@
 
 #include <QTimer>
 
-#include "SakuraFrpCommon.h"
+#include "SFLUtility.h"
 
 #define NET_TIMEOUT 999999
 
@@ -68,7 +68,7 @@ void SFLNetworkAccessManager::replyFinished(
     if (nullptr != m_reply) {
         int status_code = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         QString reponseByte = m_reply->readAll();
-        SakuraFrpCommon::UnicodeTransfrom(reponseByte);
+        SFLUtility::UnicodeTransfrom(reponseByte);
         m_network_mgr->QuitEvent(status_code, reponseByte);
         m_reply->deleteLater();
         m_reply = nullptr;

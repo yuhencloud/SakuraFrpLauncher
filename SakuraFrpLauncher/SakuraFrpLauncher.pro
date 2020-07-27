@@ -18,9 +18,8 @@ INCLUDEPATH += ./GeneratedFiles \
     ./../QT_Build/include/QtSql \
     ./../QT_Build/include/QtNetwork \
     ./../SakuraFrpCommon
-LIBS += -L"./../QT_Build/lib" \
-    -L"./../../../lib/Debug" \
-    -lSakuraFrpCommond
+LIBS += -L"./../QT_Build/lib"
+
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
 OBJECTS_DIR += debug

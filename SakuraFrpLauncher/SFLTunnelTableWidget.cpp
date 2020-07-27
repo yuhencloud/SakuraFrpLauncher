@@ -13,7 +13,7 @@
 #include "SFLDBMgr.h"
 #include "SFLGlobalMgr.h"
 #include "SFLLogDlg.h"
-#include "SakuraFrpCommon.h"
+#include "SFLUtility.h"
 
 SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     : QTableWidget(parent),
@@ -315,7 +315,7 @@ void SFLTunnelTableWidget::StartProcess(
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
     QString exe_name = "frpc_windows_386.exe";
-    if (!SakuraFrpCommon::Is64BitSystem()) {
+    if (!SFLUtility::Is64BitSystem()) {
         exe_name = "frpc_windows_386.exe";
     } else {
         exe_name = "frpc_windows_amd64.exe";

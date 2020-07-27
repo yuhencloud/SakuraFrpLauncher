@@ -48,7 +48,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;..\QT_Build\include;.\GeneratedFiles\$(ConfigurationName);..\QT_Build\include\QtCore;..\QT_Build\include\QtGui;..\QT_Build\include\QtWidgets;..\QT_Build\include\QtSql;..\QT_Build\include\QtNetwork;..\SakuraFrpCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;..\QT_Build\include;.\GeneratedFiles\$(ConfigurationName);..\QT_Build\include\QtCore;..\QT_Build\include\QtGui;..\QT_Build\include\QtWidgets;..\QT_Build\include\QtSql;..\QT_Build\include\QtNetwork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -57,16 +57,16 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\..\..\bin\Debug\$(ProjectName)d.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\QT_Build\lib;..\..\..\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\QT_Build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Networkd.lib;SakuraFrpCommond.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;..\QT_Build\include;.\GeneratedFiles\$(ConfigurationName);..\QT_Build\include\QtCore;..\QT_Build\include\QtGui;..\QT_Build\include\QtWidgets;..\QT_Build\include\QtSql;..\QT_Build\include\QtNetwork;..\SakuraFrpCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;..\QT_Build\include;.\GeneratedFiles\$(ConfigurationName);..\QT_Build\include\QtCore;..\QT_Build\include\QtGui;..\QT_Build\include\QtWidgets;..\QT_Build\include\QtSql;..\QT_Build\include\QtNetwork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -74,9 +74,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\..\..\bin\Release\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>..\QT_Build\lib;..\..\..\lib\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\QT_Build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Network.lib;SakuraFrpCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
@@ -112,6 +112,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelTableWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLUtility.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_SakuraFrpLauncher.cpp">
@@ -153,6 +156,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SFLTunnelTableWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLUtility.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SakuraFrpLauncher.cpp" />
     <ClCompile Include="SFLDBMgr.cpp" />
@@ -165,17 +171,18 @@
     <ClCompile Include="SFLNetworkAccessManager.cpp" />
     <ClCompile Include="SFLNetworkMgr.cpp" />
     <ClCompile Include="SFLTunnelTableWidget.cpp" />
+    <ClCompile Include="SFLUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="SakuraFrpLauncher.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SakuraFrpLauncher.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SakuraFrpLauncher.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -195,11 +202,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLNetworkAccessManager.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLNetworkAccessManager.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -207,11 +214,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLNetworkMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLNetworkMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -219,11 +226,11 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLDBMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLDBMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -231,74 +238,85 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLJsonHelper.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLJsonHelper.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SFLCommonDefs.h" />
+    <CustomBuild Include="SFLUtility.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLUtility.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLUtility.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+    </CustomBuild>
     <CustomBuild Include="SFLLogDlg.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLLogDlg.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLLogDlg.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
     <CustomBuild Include="SFLTunnelTableWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLTunnelTableWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLTunnelTableWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
     <CustomBuild Include="SFLGroupTabWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLGroupTabWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLGroupTabWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
     <CustomBuild Include="SFLGlobalMgr.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLGlobalMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLGlobalMgr.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
     <CustomBuild Include="SFLLoadingDlg.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLLoadingDlg.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLLoadingDlg.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
     <CustomBuild Include="SFLDialogBase.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLDialogBase.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLDialogBase.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork" "-I.\..\SakuraFrpCommon"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE  "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -69,6 +69,9 @@
     <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg">
       <UniqueIdentifier>{add32e34-db75-4cbc-91a7-424d872df037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SFLTools\SFLUtility">
+      <UniqueIdentifier>{297fa3ce-bb0d-4d31-a122-2875bc125909}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -176,6 +179,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SFLLogDlg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="SFLUtility.cpp">
+      <Filter>SFLTools\SFLUtility</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLUtility.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLUtility.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="SakuraFrpLauncher.qrc">
@@ -214,9 +226,15 @@
     <CustomBuild Include="SFLLogDlg.h">
       <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
     </CustomBuild>
+    <CustomBuild Include="SFLUtility.h">
+      <Filter>SFLTools\SFLUtility</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SFLCommonDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
