@@ -3,10 +3,20 @@
 # ------------------------------------------------------
 
 TEMPLATE = app
-TARGET = SakuraFrpLauncher
-DESTDIR = ../../../../bin/Debug
+CONFIG(debug, debug|release) {
+    TARGET = SakuraFrpLauncherd
+    DESTDIR = ../../../../bin/Debug
+    MOC_DIR += ./GeneratedFiles/Debug
+    OBJECTS_DIR += Debug
+}else{
+    TARGET = SakuraFrpLauncher
+    DESTDIR = ../../../../bin/Release
+    MOC_DIR += ./GeneratedFiles/Release
+    OBJECTS_DIR += Release
+}
+
 QT += core sql network widgets gui
-CONFIG += debug
+CONFIG += debug_and_release
 DEFINES += WIN64 QT_DLL QT_WIDGETS_LIB
 INCLUDEPATH += ./GeneratedFiles \
     . \
@@ -19,8 +29,6 @@ INCLUDEPATH += ./GeneratedFiles \
     ./../QT_Build/include/QtNetwork
 LIBS += -L"./../QT_Build/lib"
 DEPENDPATH += .
-MOC_DIR += ./GeneratedFiles/debug
-OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(SakuraFrpLauncher.pri)
