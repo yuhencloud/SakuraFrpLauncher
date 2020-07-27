@@ -30,6 +30,7 @@ QString SFLUtility::NextUuid(
     return QUuid::createUuid().toString().remove("{").remove("}").remove("-");
 }
 
+#ifdef Q_OS_WIN
 bool SFLUtility::Is64BitSystem(
 ) {
     typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
@@ -47,3 +48,4 @@ bool SFLUtility::Is64BitSystem(
     }
     return false;
 }
+#endif

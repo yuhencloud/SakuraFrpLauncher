@@ -314,12 +314,16 @@ void SFLTunnelTableWidget::StartProcess(
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
+#ifdef Q_OS_WIN
     QString exe_name = "frpc_windows_386.exe";
     if (!SFLUtility::Is64BitSystem()) {
         exe_name = "frpc_windows_386.exe";
     } else {
         exe_name = "frpc_windows_amd64.exe";
     }
+#elif Q_OS_LINUX
+    QString exe_name = "frpc_linux_386.exe";
+#endif
 
     QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
     QString start_parameter = "\"" + app_dir_path + "\\" + exe_name + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
