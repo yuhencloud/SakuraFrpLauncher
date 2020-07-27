@@ -322,7 +322,7 @@ void SFLTunnelTableWidget::StartProcess(
         exe_name = "frpc_windows_amd64.exe";
     }
 #elif Q_OS_LINUX
-    QString exe_name = "frpc_linux_386.exe";
+    QString exe_name = "frpc_linux_amd64";
 #endif
 
     QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
