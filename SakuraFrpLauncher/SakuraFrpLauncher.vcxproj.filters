@@ -72,6 +72,9 @@
     <Filter Include="SFLTools\SFLUtility">
       <UniqueIdentifier>{297fa3ce-bb0d-4d31-a122-2875bc125909}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SFLTools\SFLMsgBox">
+      <UniqueIdentifier>{070b320d-007e-462c-88d2-de83dd516944}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -188,6 +191,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SFLUtility.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="SFLMsgBox.cpp">
+      <Filter>SFLTools\SFLMsgBox</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLMsgBox.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLMsgBox.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="SakuraFrpLauncher.qrc">
@@ -228,6 +240,9 @@
     </CustomBuild>
     <CustomBuild Include="SFLUtility.h">
       <Filter>SFLTools\SFLUtility</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLMsgBox.h">
+      <Filter>SFLTools\SFLMsgBox</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

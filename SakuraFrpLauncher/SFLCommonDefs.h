@@ -34,6 +34,11 @@ using RunningState = enum {
     e_running_state_error = e_running_state_warnning + 1
 };
 
+using MsgBoxType = enum{
+    e_warning_type_yes_no = 0,
+    e_information_type_ok = e_warning_type_yes_no + 1
+};
+
 using NodeItemInfo = struct {
     int node_id;
     QString node_name;

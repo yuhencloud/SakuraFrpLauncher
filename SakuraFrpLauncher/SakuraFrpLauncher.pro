@@ -16,13 +16,12 @@ INCLUDEPATH += ./GeneratedFiles \
     ./../QT_Build/include/QtGui \
     ./../QT_Build/include/QtWidgets \
     ./../QT_Build/include/QtSql \
-    ./../QT_Build/include/QtNetwork \
-    ./../SakuraFrpCommon
+    ./../QT_Build/include/QtNetwork
 LIBS += -L"./../QT_Build/lib"
-
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
 OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(SakuraFrpLauncher.pri)
+win32:RC_FILE = SakuraFrpLauncher.rc

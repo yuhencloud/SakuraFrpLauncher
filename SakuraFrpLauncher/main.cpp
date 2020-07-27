@@ -3,9 +3,9 @@
 #include <QtWidgets/QApplication>
 #include <QDir>
 #include <QSharedMemory>
-#include <QMessageBox>
 
 #include "SFLDBMgr.h"
+#include "SFLMsgBox.h"
 
 void AddLibraryPath(
 ) {
@@ -42,7 +42,9 @@ int main(int argc, char *argv[])
     // 只能启动一个实例
     QSharedMemory share_mem(QApplication::applicationFilePath() + "SakuraFrpLauncher");
     if (!share_mem.create(1)) {
-        QMessageBox::information(nullptr, QStringLiteral("提示"), QStringLiteral("不要重复开启Sakura Frp客户端，若想运行多个客户端请将软件复制到其他目录下再运行"), QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(QStringLiteral("不要重复开启Sakura Frp客户端，若想运行多个客户端请将软件复制到其他目录下再运行"));
+        SFLMsgBox::GetInstance()->exec();
         return 0;
     }
 

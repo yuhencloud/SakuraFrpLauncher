@@ -4,7 +4,6 @@
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QPushButton>
-#include <QMessageBox>
 #include <QCheckBox>
 #include <QTimer>
 
@@ -14,6 +13,7 @@
 #include "SFLGlobalMgr.h"
 #include "SFLJsonHelper.h"
 #include "SFLGroupTabWidget.h"
+#include "SFLMsgBox.h"
 
 SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     : SFLDialogBase(parent),
@@ -140,7 +140,9 @@ void SakuraFrpLauncher::changeEvent(
 void SakuraFrpLauncher::closeEvent(
     QCloseEvent* e
 ) {
-    if (QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("确定要退出程序吗，退出后所有隧道都会关闭"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+    SFLMsgBox::GetInstance()->SetBoxType(e_warning_type_yes_no);
+    SFLMsgBox::GetInstance()->setText(QStringLiteral("确定要退出程序吗，退出后所有隧道都会关闭"));
+    if (SFLMsgBox::GetInstance()->exec() == QMessageBox::Yes) {
         ;
     } else {
         e->ignore();
@@ -228,7 +230,9 @@ void SakuraFrpLauncher::InitTabWidget(
 ) {
     QString token = m_cipher_line_edit->text();
     if (token.isEmpty()) {
-        QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("密钥不能为空"), QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(QStringLiteral("密钥不能为空"));
+        SFLMsgBox::GetInstance()->show();
         return;
     }
 
@@ -241,11 +245,15 @@ void SakuraFrpLauncher::InitTabWidget(
     NodeInfo node_info;
     bool node_suc = SFLJsonHelper().ParseNodesStringToStruct(node_retsult, node_info);
     if (!node_suc) {
-        QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("网络或服务器错误，请稍后重试"), QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(QStringLiteral("网络或服务器错误，请稍后重试"));
+        SFLMsgBox::GetInstance()->show();
         return;
     }
     if (!node_info.success) {
-        QMessageBox::warning(this, QStringLiteral("提示"), node_info.message, QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(node_info.message);
+        SFLMsgBox::GetInstance()->show();
         return;
     }
     SFLGlobalMgr::GetInstance()->SetNodeInfo(node_info);
@@ -268,11 +276,15 @@ void SakuraFrpLauncher::InitTabWidget(
     TunnelInfo tunnel_info;
     bool tunnel_suc = SFLJsonHelper().ParseTunnelsStringToStruct(tunnel_retsult, tunnel_info);
     if (!tunnel_suc) {
-        QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("网络或服务器错误，请稍后重试"), QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(QStringLiteral("网络或服务器错误，请稍后重试"));
+        SFLMsgBox::GetInstance()->show();
         return;
     }
     if (!tunnel_info.success) {
-        QMessageBox::warning(this, QStringLiteral("提示"), tunnel_info.message, QMessageBox::Ok, QMessageBox::Ok);
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(tunnel_info.message);
+        SFLMsgBox::GetInstance()->show();
         return;
     }
     SFLGlobalMgr::GetInstance()->SetTunnelInfo(tunnel_info);

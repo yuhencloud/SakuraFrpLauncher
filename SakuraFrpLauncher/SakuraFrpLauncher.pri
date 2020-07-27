@@ -7,15 +7,33 @@
 message("You are running qmake on a generated .pro file. This may not work!")
 
 
-HEADERS += ./SakuraFrpLauncher.h \
-    ./SFLNetworkAccessManager.h \
+HEADERS += ./resource.h \
+    ./SFLCommonDefs.h \
+    ./SakuraFrpLauncher.h \
+    ./SFLGroupTabWidget.h \
+    ./SFLTunnelTableWidget.h \
+    ./SFLLogDlg.h \
     ./SFLNetworkMgr.h \
+    ./SFLNetworkAccessManager.h \
     ./SFLDBMgr.h \
-    ./SFLJsonHelper.h
+    ./SFLJsonHelper.h \
+    ./SFLDialogBase.h \
+    ./SFLLoadingDlg.h \
+    ./SFLGlobalMgr.h \
+    ./SFLUtility.h \
+    ./SFLMsgBox.h
 SOURCES += ./main.cpp \
     ./SakuraFrpLauncher.cpp \
-    ./SFLNetworkAccessManager.cpp \
+    ./SFLGroupTabWidget.cpp \
+    ./SFLTunnelTableWidget.cpp \
+    ./SFLLogDlg.cpp \
     ./SFLNetworkMgr.cpp \
+    ./SFLNetworkAccessManager.cpp \
     ./SFLDBMgr.cpp \
-    ./SFLJsonHelper.cpp
+    ./SFLJsonHelper.cpp \
+    ./SFLDialogBase.cpp \
+    ./SFLLoadingDlg.cpp \
+    ./SFLGlobalMgr.cpp \
+    ./SFLUtility.cpp \
+    ./SFLMsgBox.cpp
 RESOURCES += SakuraFrpLauncher.qrc
