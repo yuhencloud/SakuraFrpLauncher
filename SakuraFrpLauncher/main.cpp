@@ -21,27 +21,27 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // ÉèÖÃµ±Ç°Ä¿Â¼£¬Ö®ºóÊ¹ÓÃÏà¶ÔÂ·¾¶
+    // è®¾ç½®å½“å‰ç›®å½•ï¼Œä¹‹åŽä½¿ç”¨ç›¸å¯¹è·¯å¾„
     QString app_dir_path = QApplication::applicationDirPath();
     QString native_app_dir_path =QDir::toNativeSeparators(app_dir_path);
     QDir::setCurrent(native_app_dir_path);
 
-    // ¼ÓÔØ¿âÂ·¾¶
+    // åŠ è½½åº“è·¯å¾„
     qApp->addLibraryPath("plugins");
 
-    // ¼ÓÔØÑùÊ½
+    // åŠ è½½æ ·å¼
     SetupQssFile();
 
-    // Ö»ÄÜÆô¶¯Ò»¸öÊµÀý
+    // åªèƒ½å¯åŠ¨ä¸€ä¸ªå®žä¾‹
     QSharedMemory share_mem(QApplication::applicationFilePath() + "SakuraFrpLauncher");
     if (!share_mem.create(1)) {
         SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
-        SFLMsgBox::GetInstance()->setText(QStringLiteral("²»ÒªÖØ¸´¿ªÆôSakura Frp¿Í»§¶Ë£¬ÈôÏëÔËÐÐ¶à¸ö¿Í»§¶ËÇë½«Èí¼þ¸´ÖÆµ½ÆäËûÄ¿Â¼ÏÂÔÙÔËÐÐ"));
+        SFLMsgBox::GetInstance()->setText("ä¸è¦é‡å¤å¼€å¯Sakura Frpå®¢æˆ·ç«¯ï¼Œè‹¥æƒ³è¿è¡Œå¤šä¸ªå®¢æˆ·ç«¯è¯·å°†è½¯ä»¶å¤åˆ¶åˆ°å…¶ä»–ç›®å½•ä¸‹å†è¿è¡Œ");
         SFLMsgBox::GetInstance()->exec();
         return 0;
     }
 
-    // ´´½¨/´ò¿ª±¾µØÊý¾Ý¿â
+    // åˆ›å»º/æ‰“å¼€æœ¬åœ°æ•°æ®åº“
     SFLDBMgr::GetInstance()->OpenLocalDB("data.db");
 
     SakuraFrpLauncher w;
