@@ -27,7 +27,7 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
     this->setWindowTitle(QStringLiteral("SakuraFrpLauncher ") + version);
-    this->setMinimumSize(750, 400);
+    this->setMinimumSize(860, 400);
 
     // ³õÊ¼»¯µÇÂ¼
     QWidget* login_widget = InitLoginWidget();

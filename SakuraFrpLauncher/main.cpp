@@ -7,18 +7,6 @@
 #include "SFLDBMgr.h"
 #include "SFLMsgBox.h"
 
-void AddLibraryPath(
-) {
-    QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-    qApp->addLibraryPath(app_dir_path + "/plugins");
-}
-
-void CreateDataDB(
-) {
-    QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-    SFLDBMgr::GetInstance()->OpenLocalDB(app_dir_path + "/data.db");
-}
-
 void SetupQssFile(
 ) {
     QFile qss_file(":/Resources/qss/SakuraFrpLauncher.qss");
@@ -33,8 +21,13 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // 设置当前目录，之后使用相对路径
+    QString app_dir_path = QApplication::applicationDirPath();
+    QString native_app_dir_path =QDir::toNativeSeparators(app_dir_path);
+    QDir::setCurrent(native_app_dir_path);
+
     // 加载库路径
-    AddLibraryPath();
+    qApp->addLibraryPath("plugins");
 
     // 加载样式
     SetupQssFile();
@@ -49,7 +42,7 @@ int main(int argc, char *argv[])
     }
 
     // 创建/打开本地数据库
-    CreateDataDB();
+    SFLDBMgr::GetInstance()->OpenLocalDB("data.db");
 
     SakuraFrpLauncher w;
     w.show();

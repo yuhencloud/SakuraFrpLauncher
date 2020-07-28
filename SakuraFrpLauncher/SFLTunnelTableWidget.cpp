@@ -325,8 +325,7 @@ void SFLTunnelTableWidget::StartProcess(
     QString exe_name = "frpc_linux_amd64";
 #endif
 
-    QString app_dir_path = QDir::toNativeSeparators(QApplication::instance()->applicationDirPath());
-    QString start_parameter = "\"" + QDir::toNativeSeparators(app_dir_path + "/" + exe_name) + "\"" + " -f " + token + ":" + QString::number(tunnel_id);
+    QString start_parameter = exe_name + " -f " + token + ":" + QString::number(tunnel_id);
     m_tunnel_process_map[tunnel_id].process->start(start_parameter);
     m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 }
