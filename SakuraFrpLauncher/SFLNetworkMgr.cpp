@@ -4,8 +4,6 @@
 #include <QFile>
 #include <QDir>
 #include <QHttpMultiPart>
-#include "QThread.h"
-#include <qt_windows.h>
 
 SFLNetworkMgr::SFLNetworkMgr(
 ):
@@ -29,11 +27,9 @@ NetworkState SFLNetworkMgr::PostData(
     int timeout /* = -1 */ ,
     QEventLoop::ProcessEventsFlags flags/* = QEventLoop::AllEvents*/
 ) {
-    OutputDebugStringA(("@@@(Post)" + url).toLocal8Bit().toStdString().c_str());
     m_network_access_manager->PostData(url, msg_to_send, timeout);
     int code = m_event_loop->exec(flags); 
     result = m_result;
-    OutputDebugStringA(("@@@(Post)" + result).toLocal8Bit().toStdString().c_str());
     NetworkState network_state = e_network_success;
     if (200 == code) {
         network_state = e_network_success;
@@ -51,11 +47,9 @@ NetworkState SFLNetworkMgr::GetData(
     int timeout /* = -1 */,
     QEventLoop::ProcessEventsFlags flags/* = QEventLoop::AllEvents*/
 ) {
-    OutputDebugStringA(("@@@(Get)" + url).toLocal8Bit().toStdString().c_str());
     m_network_access_manager->GetData(url, timeout);
     int code = m_event_loop->exec(flags); 
     result = m_result;
-    OutputDebugStringA(("@@@(Get)" + result).toLocal8Bit().toStdString().c_str());
     NetworkState network_state = e_network_success;
     if (200 == code) {
         network_state = e_network_success;
