@@ -1,4 +1,4 @@
-#include "SFLJsonHelper.h"
+﻿#include "SFLJsonHelper.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>

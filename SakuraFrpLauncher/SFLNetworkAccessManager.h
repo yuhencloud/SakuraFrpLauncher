@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #ifndef SFLNETWORKACCESSMANAGER_H
 #define SFLNETWORKACCESSMANAGER_H

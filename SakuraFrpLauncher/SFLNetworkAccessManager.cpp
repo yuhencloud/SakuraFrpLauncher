@@ -1,4 +1,4 @@
-#include "SFLNetworkAccessManager.h"
+﻿#include "SFLNetworkAccessManager.h"
 #include "SFLNetworkMgr.h"
 
 #include <QTimer>

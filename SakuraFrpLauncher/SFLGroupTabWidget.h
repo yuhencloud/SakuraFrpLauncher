@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLGROUPTABWIDGET_H
 #define SFLGROUPTABWIDGET_H
 

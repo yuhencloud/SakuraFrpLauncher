@@ -1,4 +1,4 @@
-#include "SFLLoadingDlg.h"
+ï»¿#include "SFLLoadingDlg.h"
 #include <QLabel>
 #include <QMovie>
 #include <QBoxLayout>
@@ -9,7 +9,7 @@ SFLLoadingDlg::SFLLoadingDlg(QWidget *parent) :
     this->setWindowFlags(windowFlags() & ~Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     this->setModal(true);
     this->setFixedSize(200, 150);
-    this->setWindowTitle(QStringLiteral("ÌáÊ¾"));
+    this->setWindowTitle(QString::fromLocal8Bit("æç¤º"));
     this->setObjectName("SFLLoadingDlg");
 
     QVBoxLayout* main_v_layout = new QVBoxLayout(this);
@@ -18,7 +18,7 @@ SFLLoadingDlg::SFLLoadingDlg(QWidget *parent) :
     m_text_label = new QLabel(this);
     m_text_label->setObjectName("SFLLoadingDlg_text_label");
     m_text_label->setAlignment(Qt::AlignCenter);
-    m_text_label->setText(QStringLiteral("ÇëµÈ´ý..."));
+    m_text_label->setText(QString::fromLocal8Bit("è¯·ç­‰å¾…..."));
 
     QLabel* loading_label = new QLabel(this);
 

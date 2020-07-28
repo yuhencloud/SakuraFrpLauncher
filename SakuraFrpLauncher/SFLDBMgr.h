@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef SFLDBMGR_H
 #define SFLDBMGR_H
 
@@ -20,7 +20,7 @@ public:
     void DeleteInstance(
     );
 
-public: // Êı¾İ¿â»ù´¡²Ù×÷
+public: // æ•°æ®åº“åŸºç¡€æ“ä½œ
 
     bool OpenLocalDB(
         QString db_path
@@ -44,7 +44,7 @@ public: // Êı¾İ¿â»ù´¡²Ù×÷
         QSqlDatabase db
     );
 
-public: // ½Ó¿Ú
+public: // æ¥å£
 
     bool GetValueByKey(
         QSqlDatabase db,

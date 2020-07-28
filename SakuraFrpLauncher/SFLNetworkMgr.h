@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLNETWORKMGR_H
 #define SFLNETWORKMGR_H
 

@@ -1,4 +1,4 @@
-#include "SakuraFrpLauncher.h"
+﻿#include "SakuraFrpLauncher.h"
 
 #include <QtWidgets/QApplication>
 #include <QDir>
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     QSharedMemory share_mem(QApplication::applicationFilePath() + "SakuraFrpLauncher");
     if (!share_mem.create(1)) {
         SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
-        SFLMsgBox::GetInstance()->setText("不要重复开启Sakura Frp客户端，若想运行多个客户端请将软件复制到其他目录下再运行");
+        SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("不要重复开启Sakura Frp客户端，若想运行多个客户端请将软件复制到其他目录下再运行"));
         SFLMsgBox::GetInstance()->exec();
         return 0;
     }

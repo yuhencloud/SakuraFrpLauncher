@@ -1,4 +1,4 @@
-#include "SFLUtility.h"
+﻿#include "SFLUtility.h"
 
 #include <QUuid>
 #ifdef Q_OS_WIN

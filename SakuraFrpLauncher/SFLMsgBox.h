@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLMSGBOX_H
 #define SFLMSGBOX_H
 

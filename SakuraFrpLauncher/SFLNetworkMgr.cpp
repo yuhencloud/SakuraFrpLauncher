@@ -1,4 +1,4 @@
-#include "SFLNetworkMgr.h"
+﻿#include "SFLNetworkMgr.h"
 #include <QEventLoop>
 #include "SFLNetworkAccessManager.h"
 #include <QFile>

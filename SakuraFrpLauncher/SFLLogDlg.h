@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLLOGDLG_H
 #define SFLLOGDLG_H
 

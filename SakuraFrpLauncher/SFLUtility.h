@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLUTILITY_H
 #define SFLUTILITY_H
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLJSONHELPER_H
 #define SFLJSONHELPER_H
 

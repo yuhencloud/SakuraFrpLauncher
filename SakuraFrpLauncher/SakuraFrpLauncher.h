@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SAKURAFRPLAUNCHER_H
 #define SAKURAFRPLAUNCHER_H
 

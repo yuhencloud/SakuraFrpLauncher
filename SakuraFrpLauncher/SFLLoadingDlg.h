@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLLOADINGDLG_H
 #define SFLLOADINGDLG_H
 

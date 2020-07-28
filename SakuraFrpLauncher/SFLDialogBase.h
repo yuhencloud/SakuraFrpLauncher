@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLDIALOGBASE_H
 #define SFLDIALOGBASE_H
 

@@ -1,4 +1,4 @@
-#include "SFLTunnelTableWidget.h"
+ï»¿#include "SFLTunnelTableWidget.h"
 
 #include <QHeaderView>
 #include <QSignalMapper>
@@ -25,16 +25,16 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     this->setColumnCount(10);
     QStringList header_label_list;
     header_label_list
-        << QStringLiteral("ĞòºÅ")
-        << QStringLiteral("ËíµÀID")
-        << QStringLiteral("ËíµÀ")
-        << QStringLiteral("ÀàĞÍ")
-        << QStringLiteral("ÃèÊö")
-        << QStringLiteral("Æô¶¯Ê±¼ä")
-        << QStringLiteral("ÔËĞĞÊ±¼ä")
-        << QStringLiteral("½ø³Ì×´Ì¬")
-        << QStringLiteral("ÔËĞĞ×´Ì¬")
-        << QStringLiteral("²Ù×÷");
+        << QString::fromLocal8Bit("åºå·")
+        << QString::fromLocal8Bit("éš§é“ID")
+        << QString::fromLocal8Bit("éš§é“")
+        << QString::fromLocal8Bit("ç±»å‹")
+        << QString::fromLocal8Bit("æè¿°")
+        << QString::fromLocal8Bit("å¯åŠ¨æ—¶é—´")
+        << QString::fromLocal8Bit("è¿è¡Œæ—¶é—´")
+        << QString::fromLocal8Bit("è¿›ç¨‹çŠ¶æ€")
+        << QString::fromLocal8Bit("è¿è¡ŒçŠ¶æ€")
+        << QString::fromLocal8Bit("æ“ä½œ");
     this->setHorizontalHeaderLabels(header_label_list);
 
     QHeaderView* header_view = verticalHeader();
@@ -74,7 +74,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
 ) {
     m_node_item_info = node_item_info;
     ClearTable();
-    // É¾³ıÁ¬½Ómapping
+    // åˆ é™¤è¿æ¥mapping
     if (nullptr != m_start_stop_mapper) {
         disconnect(m_start_stop_mapper, SIGNAL(mapped(int)), this, SLOT(OnStartStopBtnClicked(int)));
         QSignalMapper* temp_mapper = m_start_stop_mapper;
@@ -88,7 +88,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         m_check_log_mapper = nullptr;
     }
 
-    // »ñÈ¡ĞÂµÄ½ÚµãËíµÀÁĞ±í
+    // è·å–æ–°çš„èŠ‚ç‚¹éš§é“åˆ—è¡¨
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     QVector<TunnelItemInfo> tunnel_item_info_list;
     SFLDBMgr::GetInstance()->GetTunnelInfoByNodeID(db, node_item_info.node_id, tunnel_item_info_list);
@@ -154,7 +154,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
     connect(m_check_log_mapper, SIGNAL(mapped(int)), this, SLOT(OnCheckLogBtnClicked(int)));
 
     this->setRowCount(tunnel_item_info_list.size());
-    // ³õÊ¼»¯ÁĞ±í
+    // åˆå§‹åŒ–åˆ—è¡¨
     for (int i = 0; i < m_tunnel_process_map.keys().size(); ++i) {
         int col_index = 0;
         TunnelItemInfo tunnel_item_info = m_tunnel_process_map[m_tunnel_process_map.keys()[i]].tunnel_item_info;
@@ -211,9 +211,9 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         this->setItem(i, col_index++, running_time_item);
 
         QTableWidgetItem* process_status_item = new QTableWidgetItem();
-        process_status_item->setText(QStringLiteral("Í£Ö¹"));
+        process_status_item->setText(QString::fromLocal8Bit("åœæ­¢"));
         process_status_item->setTextColor(Qt::red);
-        process_status_item->setToolTip(QStringLiteral("Í£Ö¹"));
+        process_status_item->setToolTip(QString::fromLocal8Bit("åœæ­¢"));
         process_status_item->setTextAlignment(Qt::AlignCenter);
         process_status_item->setFlags(process_status_item->flags() & (~Qt::ItemIsEditable));
         this->setItem(i, col_index++, process_status_item);
@@ -232,7 +232,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         QPushButton* start_stop_btn = new QPushButton(container_widget);
         start_stop_btn->setObjectName("SFLTunnelTableWidget_start_stop_btn");
         start_stop_btn->setFixedSize(16, 16);
-        start_stop_btn->setToolTip(QStringLiteral("Æô¶¯/Í£Ö¹"));
+        start_stop_btn->setToolTip(QString::fromLocal8Bit("å¯åŠ¨/åœæ­¢"));
         start_stop_btn->setCheckable(true);
         start_stop_btn->setCursor(Qt::PointingHandCursor);
         connect(start_stop_btn, SIGNAL(clicked()), m_start_stop_mapper, SLOT(map()));
@@ -241,7 +241,7 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         QPushButton* check_log_btn = new QPushButton(container_widget);
         check_log_btn->setObjectName("SFLTunnelTableWidget_check_log_btn");
         check_log_btn->setFixedSize(16, 16);
-        check_log_btn->setToolTip(QStringLiteral("²é¿´ÈÕÖ¾"));
+        check_log_btn->setToolTip(QString::fromLocal8Bit("æŸ¥çœ‹æ—¥å¿—"));
         check_log_btn->setCursor(Qt::PointingHandCursor);
         connect(check_log_btn, SIGNAL(clicked()), m_check_log_mapper, SLOT(map()));
         m_check_log_mapper->setMapping(check_log_btn, tunnel_item_info.tunnel_id);
@@ -347,7 +347,7 @@ void SFLTunnelTableWidget::OnProcessOutput(
         m_log_dlg->UpdateLog(m_tunnel_process_map[tunnel_id]);
     }
 
-    // ÅĞ¶ÏÊä³öÈÕÖ¾¼¶±ğ
+    // åˆ¤æ–­è¾“å‡ºæ—¥å¿—çº§åˆ«
     if (-1 != text.indexOf(" [I] ") && -1 != text.indexOf("start proxy success")) {
         m_tunnel_process_map[tunnel_id].running_state = e_running_state_info;
     } else if (-1 != text.indexOf(" [W] ")) {
@@ -380,10 +380,10 @@ void SFLTunnelTableWidget::UpdateTable(
             m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
         }
 
-        // Æô¶¯Ê±¼ä
+        // å¯åŠ¨æ—¶é—´
         this->item(i, 5)->setText(m_tunnel_process_map[tunnel_id].startup_time);
 
-        // ÔËĞĞÊ±¼ä
+        // è¿è¡Œæ—¶é—´
         if (invalid_symbol != m_tunnel_process_map[tunnel_id].startup_time) {
             QDateTime startup_time = QDateTime::fromString(m_tunnel_process_map[tunnel_id].startup_time, "yyyy-MM-dd hh:mm:ss");
             QString start_time = startup_time.toString("yyyy-MM-dd hh:mm:ss");
@@ -396,31 +396,31 @@ void SFLTunnelTableWidget::UpdateTable(
             this->item(i, 6)->setText(invalid_symbol);
         }
 
-        // ½ø³Ì×´Ì¬
+        // è¿›ç¨‹çŠ¶æ€
         if (QProcess::Running != m_tunnel_process_map[tunnel_id].process->state()) {
-            this->item(i, 7)->setText(QStringLiteral("Í£Ö¹"));
+            this->item(i, 7)->setText(QString::fromLocal8Bit("åœæ­¢"));
             this->item(i, 7)->setTextColor(Qt::red);
         } else {
-            this->item(i, 7)->setText(QStringLiteral("ÔËĞĞ"));
+            this->item(i, 7)->setText(QString::fromLocal8Bit("è¿è¡Œ"));
             this->item(i, 7)->setTextColor(Qt::green);
         }
 
-        // ÔËĞĞ×´Ì¬
+        // è¿è¡ŒçŠ¶æ€
         if (e_running_state_none == m_tunnel_process_map[tunnel_id].running_state) {
             this->item(i, 8)->setText(invalid_symbol);
             this->item(i, 8)->setTextColor(Qt::black);
         } else if (e_running_state_info == m_tunnel_process_map[tunnel_id].running_state) {
-            this->item(i, 8)->setText(QStringLiteral("Õı³£"));
+            this->item(i, 8)->setText(QString::fromLocal8Bit("æ­£å¸¸"));
             this->item(i, 8)->setTextColor(Qt::green);
         } else if (e_running_state_warnning == m_tunnel_process_map[tunnel_id].running_state) {
-            this->item(i, 8)->setText(QStringLiteral("¾¯¸æ"));
+            this->item(i, 8)->setText(QString::fromLocal8Bit("è­¦å‘Š"));
             this->item(i, 8)->setTextColor(QColor(255, 130, 50));
         } else if (e_running_state_error == m_tunnel_process_map[tunnel_id].running_state) {
-            this->item(i, 8)->setText(QStringLiteral("´íÎó"));
+            this->item(i, 8)->setText(QString::fromLocal8Bit("é”™è¯¯"));
             this->item(i, 8)->setTextColor(Qt::red);
         }
 
-        // °´Å¥×´Ì¬
+        // æŒ‰é’®çŠ¶æ€
         QWidget* container_widget = this->cellWidget(i, 9);
         if (nullptr != container_widget) {
             QPushButton* start_stop_btn = container_widget->findChild<QPushButton*>("SFLTunnelTableWidget_start_stop_btn");

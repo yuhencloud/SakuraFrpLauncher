@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef SFLGLOBALMGR_H
 #define SFLGLOBALMGR_H
 

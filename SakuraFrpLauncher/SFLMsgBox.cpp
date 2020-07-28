@@ -1,4 +1,4 @@
-#include "SFLMsgBox.h"
+Ôªø#include "SFLMsgBox.h"
 
 #include <QApplication>
 #include <QDialogButtonBox>
@@ -52,25 +52,25 @@ void SFLMsgBox::SetBoxType(
     ResetItems();
     switch (msg_box_type) {
         case e_warning_type_yes_no: {
-            setWindowTitle(QStringLiteral("æØ∏Ê"));
+            setWindowTitle(QString::fromLocal8Bit("Ë≠¶Âëä"));
             setIcon(QMessageBox::Warning);
             setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            setButtonText(QMessageBox::Yes, QStringLiteral(" «"));
-            setButtonText(QMessageBox::No, QStringLiteral("∑Ò"));
+            setButtonText(QMessageBox::Yes, QString::fromLocal8Bit("ÊòØ"));
+            setButtonText(QMessageBox::No, QString::fromLocal8Bit("Âê¶"));
             break;
         }
         case e_information_type_ok: {
-            setWindowTitle(QStringLiteral("Ã· æ"));
+            setWindowTitle(QString::fromLocal8Bit("ÊèêÁ§∫"));
             setIcon(QMessageBox::Information);
             setStandardButtons(QMessageBox::Ok);
-            setButtonText(QMessageBox::Ok, QStringLiteral("»∑∂®"));
+            setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("Á°ÆÂÆö"));
             break;
         }
         default: {
-            setWindowTitle(QStringLiteral("Ã· æ"));
+            setWindowTitle(QString::fromLocal8Bit("ÊèêÁ§∫"));
             setIcon(QMessageBox::Information);
             setStandardButtons(QMessageBox::Ok);
-            setButtonText(QMessageBox::Ok, QStringLiteral("»∑∂®"));
+            setButtonText(QMessageBox::Ok, QString::fromLocal8Bit("Á°ÆÂÆö"));
             break;
         }
     }

@@ -1,4 +1,4 @@
-#include "SFLLogDlg.h"
+ï»¿#include "SFLLogDlg.h"
 
 #include <QBoxLayout>
 #include <QTextEdit>
@@ -12,7 +12,7 @@ SFLLogDlg::SFLLogDlg(QWidget *parent) :
     this->setWindowFlags(windowFlags() | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
     this->setModal(false);
     this->setMinimumSize(1020, 400);
-    this->setWindowTitle(QStringLiteral("²é¿´ÈÕÖ¾"));
+    this->setWindowTitle(QString::fromLocal8Bit("æŸ¥çœ‹æ—¥å¿—"));
 
     m_info_label = new QLabel(this);
     m_info_label->setText("");
@@ -37,7 +37,7 @@ void SFLLogDlg::UpdateLog(
     const TunnelProcess& tunnel_process
 ) {
     m_tunnel_process = tunnel_process;
-    m_info_label->setText(QStringLiteral("ËíµÀID:") + QString::number(tunnel_process.tunnel_item_info.tunnel_id) + "\t" + QStringLiteral("ËíµÀ£º") + tunnel_process.tunnel_item_info.tunnel_name);
+    m_info_label->setText(QString::fromLocal8Bit("éš§é“ID:") + QString::number(tunnel_process.tunnel_item_info.tunnel_id) + "\t" + QString::fromLocal8Bit("éš§é“ï¼š") + tunnel_process.tunnel_item_info.tunnel_name);
     m_log_text_edit->setText(tunnel_process.log_text);
     m_log_text_edit->verticalScrollBar()->setValue(m_log_text_edit->verticalScrollBar()->maximum());
 }

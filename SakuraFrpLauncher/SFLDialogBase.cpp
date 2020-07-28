@@ -1,4 +1,4 @@
-#include "SFLDialogBase.h"
+﻿#include "SFLDialogBase.h"
 
 SFLDialogBase::SFLDialogBase(QWidget *parent)
     : QDialog(parent)

@@ -1,4 +1,4 @@
-#include "SakuraFrpLauncher.h"
+ï»¿#include "SakuraFrpLauncher.h"
 
 #include <QMenu>
 #include <QLineEdit>
@@ -26,10 +26,10 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
-    this->setWindowTitle(QStringLiteral("SakuraFrpLauncher ") + version);
+    this->setWindowTitle(QString::fromLocal8Bit("SakuraFrpLauncher Powered By é›¨ç—•äº‘") + version);
     this->setMinimumSize(860, 400);
 
-    // ³õÊ¼»¯µÇÂ¼
+    // åˆå§‹åŒ–ç™»å½•
     QWidget* login_widget = InitLoginWidget();
     m_group_tab_widget = new SFLGroupTabWidget(this);
 
@@ -38,10 +38,10 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     v_layout->addWidget(m_group_tab_widget);
     this->setLayout(v_layout);
 
-    // ³õÊ¼»¯ÍÐÅÌÍ¼±ê
+    // åˆå§‹åŒ–æ‰˜ç›˜å›¾æ ‡
     InitTrayIcon();
 
-    // ³õÊ¼»¯¼ÓÔØ¿ò
+    // åˆå§‹åŒ–åŠ è½½æ¡†
     SFLGlobalMgr::GetInstance()->SetLoadingDlg(new SFLLoadingDlg());
 
     SFLGlobalMgr::GetInstance()->SetLauncher(this);
@@ -53,10 +53,10 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel, auto_get_tunnel);
     if ("1" == auto_get_tunnel) {
-        // ×Ô¶¯µÇÂ¼
+        // è‡ªåŠ¨ç™»å½•
         InitTabWidget();
 
-        // Æô¶¯timer
+        // å¯åŠ¨timer
         QString auto_get_tunnel_time = "";
         SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel_time, auto_get_tunnel_time);
         m_auto_get_tunnel_timer->start(auto_get_tunnel_time.toInt());
@@ -71,19 +71,19 @@ SakuraFrpLauncher::~SakuraFrpLauncher()
 
 void SakuraFrpLauncher::InitTrayIcon(
 ) {
-    // ´´½¨ÏµÍ³ÍÐÅÌÍ¼±ê
+    // åˆ›å»ºç³»ç»Ÿæ‰˜ç›˜å›¾æ ‡
     QMenu* tray_menu = new QMenu(this);
     QAction* open_action = new QAction(this);
-    open_action->setText(QStringLiteral("´ò¿ª"));
+    open_action->setText(QString::fromLocal8Bit("æ‰“å¼€"));
     connect(open_action, &QAction::triggered, this, &SakuraFrpLauncher::OnOpenAction);
     QAction* quit_action = new QAction(this);
-    quit_action->setText(QStringLiteral("ÍË³ö"));
+    quit_action->setText(QString::fromLocal8Bit("é€€å‡º"));
     connect(quit_action, &QAction::triggered, this, &SakuraFrpLauncher::OnCloseAction);
     tray_menu->addAction(open_action);
     tray_menu->addAction(quit_action);
 
     m_system_tray_icon = new QSystemTrayIcon(this);
-    m_system_tray_icon->setToolTip(QStringLiteral("Sakura Frp¿Í»§¶Ë"));
+    m_system_tray_icon->setToolTip(QString::fromLocal8Bit("Sakura Frpå®¢æˆ·ç«¯"));
     m_system_tray_icon->setIcon(QIcon(":/Resources/images/icon.ico"));
     connect(m_system_tray_icon, &QSystemTrayIcon::activated, this, &SakuraFrpLauncher::OnActivated);
     connect(m_system_tray_icon, &QSystemTrayIcon::messageClicked, this, &SakuraFrpLauncher::showNormal);
@@ -131,7 +131,7 @@ void SakuraFrpLauncher::OnCloseAction(
 void SakuraFrpLauncher::changeEvent(
     QEvent* e
 ) {
-    // ×îÐ¡»¯µ½ÍÐÅÌ
+    // æœ€å°åŒ–åˆ°æ‰˜ç›˜
     if (this->windowState() == Qt::WindowMinimized) {
         this->hide();
     }
@@ -141,7 +141,7 @@ void SakuraFrpLauncher::closeEvent(
     QCloseEvent* e
 ) {
     SFLMsgBox::GetInstance()->SetBoxType(e_warning_type_yes_no);
-    SFLMsgBox::GetInstance()->setText(QStringLiteral("È·¶¨ÒªÍË³ö³ÌÐòÂð£¬ÍË³öºóËùÓÐËíµÀ¶¼»á¹Ø±Õ"));
+    SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("ç¡®å®šè¦é€€å‡ºç¨‹åºå—ï¼Œé€€å‡ºåŽæ‰€æœ‰éš§é“éƒ½ä¼šå…³é—­"));
     if (SFLMsgBox::GetInstance()->exec() == QMessageBox::Yes) {
         ;
     } else {
@@ -158,15 +158,15 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     login_widget_h_layout->setContentsMargins(QMargins(0, 0, 0, 0));
     m_cipher_line_edit = new QLineEdit(login_widget);
     m_cipher_line_edit->setObjectName("SakuraFrpLauncher_cipher_line_edit");
-    m_cipher_line_edit->setPlaceholderText(QStringLiteral("ÇëÊäÈëµÇÂ¼ÃÜÔ¿"));
+    m_cipher_line_edit->setPlaceholderText(QString::fromLocal8Bit("è¯·è¾“å…¥ç™»å½•å¯†é’¥"));
     m_cipher_line_edit->setEchoMode(QLineEdit::Password);
 
     QPushButton* login_btn = new QPushButton(login_widget);
-    login_btn->setText(QStringLiteral("»ñÈ¡ËíµÀ"));
+    login_btn->setText(QString::fromLocal8Bit("èŽ·å–éš§é“"));
     connect(login_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnLoginBtnClicked);
 
     m_auto_get_tunnel_check_box = new QCheckBox(login_widget);
-    m_auto_get_tunnel_check_box->setText(QStringLiteral("×Ô¶¯»ñÈ¡ËíµÀ"));
+    m_auto_get_tunnel_check_box->setText(QString::fromLocal8Bit("è‡ªåŠ¨èŽ·å–éš§é“"));
     QString auto_get_tunnel = "0";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_get_tunnel, auto_get_tunnel);
@@ -178,7 +178,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     connect(m_auto_get_tunnel_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoGetTunnelCheckBoxStateChanged(int)));
 
     m_auto_start_process_check_box = new QCheckBox(login_widget);
-    m_auto_start_process_check_box->setText(QStringLiteral("×Ô¶¯Æô¶¯ËíµÀ"));
+    m_auto_start_process_check_box->setText(QString::fromLocal8Bit("è‡ªåŠ¨å¯åŠ¨éš§é“"));
     QString auto_start_process = "0";
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_start_process, auto_start_process);
     if ("1" == auto_start_process) {
@@ -189,7 +189,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     connect(m_auto_start_process_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoStartProcessCheckBoxStateChanged(int)));
 
     m_tray_message_check_box = new QCheckBox(login_widget);
-    m_tray_message_check_box->setText(QStringLiteral("ÍÐÅÌÍ¨Öª"));
+    m_tray_message_check_box->setText(QString::fromLocal8Bit("æ‰˜ç›˜é€šçŸ¥"));
     QString tray_message = "0";
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_tray_message, tray_message);
     if ("1" == tray_message) {
@@ -208,7 +208,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
 
     login_widget->setLayout(login_widget_h_layout);
 
-    // ¶ÁÈ¡´æ´¢µÄtoken
+    // è¯»å–å­˜å‚¨çš„token
     QString token = "";
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
@@ -220,7 +220,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
 void SakuraFrpLauncher::OnLoginBtnClicked(
 ) {
     SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
-    login_dlg->SetText(QStringLiteral("ÕýÔÚ»ñÈ¡ËíµÀÁÐ±í..."));
+    login_dlg->SetText(QString::fromLocal8Bit("æ­£åœ¨èŽ·å–éš§é“åˆ—è¡¨..."));
     login_dlg->show();
     InitTabWidget();
     login_dlg->hide();
@@ -231,7 +231,7 @@ void SakuraFrpLauncher::InitTabWidget(
     QString token = m_cipher_line_edit->text();
     if (token.isEmpty()) {
         SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
-        SFLMsgBox::GetInstance()->setText(QStringLiteral("ÃÜÔ¿²»ÄÜÎª¿Õ"));
+        SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("å¯†é’¥ä¸èƒ½ä¸ºç©º"));
         SFLMsgBox::GetInstance()->show();
         return;
     }
@@ -241,12 +241,12 @@ void SakuraFrpLauncher::InitTabWidget(
     QString node_retsult = "";
     SFLNetworkMgr().GetData(node_url, node_retsult, 20000);
 
-    // ½øÐÐjson½âÎö
+    // è¿›è¡Œjsonè§£æž
     NodeInfo node_info;
     bool node_suc = SFLJsonHelper().ParseNodesStringToStruct(node_retsult, node_info);
     if (!node_suc) {
         SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
-        SFLMsgBox::GetInstance()->setText(QStringLiteral("ÍøÂç»ò·þÎñÆ÷´íÎó£¬ÇëÉÔºóÖØÊÔ"));
+        SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("ç½‘ç»œæˆ–æœåŠ¡å™¨é”™è¯¯ï¼Œè¯·ç¨åŽé‡è¯•"));
         SFLMsgBox::GetInstance()->show();
         return;
     }
@@ -258,26 +258,26 @@ void SakuraFrpLauncher::InitTabWidget(
     }
     SFLGlobalMgr::GetInstance()->SetNodeInfo(node_info);
 
-    // tokenÈë¿â
+    // tokenå…¥åº“
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->UpdateValueByKey(db, sfl_token, token);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
-    // »ñÈ¡ËíµÀÁÐ±í
+    // èŽ·å–éš§é“åˆ—è¡¨
     QString tunnel_url = sakura_frp_domain + uri_get_tunnels;
     tunnel_url += "token=" + token;
     QString tunnel_retsult = "";
     SFLNetworkMgr().GetData(tunnel_url, tunnel_retsult, 20000);
 
-    // ½ûÓÃÊäÈë¿ò£¬²»ÔÙÔÊÐíÐÞ¸ÄÃÜÔ¿
+    // ç¦ç”¨è¾“å…¥æ¡†ï¼Œä¸å†å…è®¸ä¿®æ”¹å¯†é’¥
     m_cipher_line_edit->setDisabled(true);
 
-    // ½øÐÐjson½âÎö
+    // è¿›è¡Œjsonè§£æž
     TunnelInfo tunnel_info;
     bool tunnel_suc = SFLJsonHelper().ParseTunnelsStringToStruct(tunnel_retsult, tunnel_info);
     if (!tunnel_suc) {
         SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
-        SFLMsgBox::GetInstance()->setText(QStringLiteral("ÍøÂç»ò·þÎñÆ÷´íÎó£¬ÇëÉÔºóÖØÊÔ"));
+        SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("ç½‘ç»œæˆ–æœåŠ¡å™¨é”™è¯¯ï¼Œè¯·ç¨åŽé‡è¯•"));
         SFLMsgBox::GetInstance()->show();
         return;
     }
@@ -289,10 +289,10 @@ void SakuraFrpLauncher::InitTabWidget(
     }
     SFLGlobalMgr::GetInstance()->SetTunnelInfo(tunnel_info);
 
-    // ³õÊ¼»¯ËíµÀÊý¾Ý¿â
+    // åˆå§‹åŒ–éš§é“æ•°æ®åº“
     InitTunnels(node_info.node_item_info_list, tunnel_info.tunnel_item_info_list);
 
-    // ³õÊ¼»¯ËíµÀ×étab
+    // åˆå§‹åŒ–éš§é“ç»„tab
     m_group_tab_widget->InitTabWidget();
 }
 
@@ -331,10 +331,10 @@ void SakuraFrpLauncher::ShowTrayMessage(
     QString title = "";
     QSystemTrayIcon::MessageIcon icon;
     if (e_running_state_warnning == tunnel_process.running_state) {
-        title = QStringLiteral("¾¯¸æ");
+        title = QString::fromLocal8Bit("è­¦å‘Š");
         icon = QSystemTrayIcon::Warning;
     } else if (e_running_state_error == tunnel_process.running_state) {
-        title = QStringLiteral("´íÎó");
+        title = QString::fromLocal8Bit("é”™è¯¯");
         icon = QSystemTrayIcon::Critical;
     } else {
         return;

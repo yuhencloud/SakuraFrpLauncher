@@ -1,4 +1,4 @@
-#include "SFLGroupTabWidget.h"
+ï»¿#include "SFLGroupTabWidget.h"
 
 #include "SFLTunnelTableWidget.h"
 #include "SFLDBMgr.h"
@@ -15,13 +15,13 @@ SFLGroupTabWidget::~SFLGroupTabWidget()
 
 void SFLGroupTabWidget::InitTabWidget(
 ) {
-    // µ±Ç°·şÎñÆ÷µÄ½ÚµãÁĞ±í
+    // å½“å‰æœåŠ¡å™¨çš„èŠ‚ç‚¹åˆ—è¡¨
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     QVector<NodeItemInfo> server_node_item_info_list;
     SFLDBMgr::GetInstance()->GetNodeInfoList(db, server_node_item_info_list);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
 
-    // É¾³ıÒÑ¾­²»Ê¹ÓÃ½ÚµãĞÅÏ¢
+    // åˆ é™¤å·²ç»ä¸ä½¿ç”¨èŠ‚ç‚¹ä¿¡æ¯
     QVector<NodeItemInfo> local_node_item_info_list;
     for (int i = this->count() - 1; i >= 0; --i) {
         SFLTunnelTableWidget* tunnel_table_widget = dynamic_cast<SFLTunnelTableWidget*>(this->widget(i));
@@ -29,7 +29,7 @@ void SFLGroupTabWidget::InitTabWidget(
             NodeItemInfo node_item_info;
             tunnel_table_widget->GetNodeItemInfo(node_item_info);
 
-            // ÅĞ¶Ïµ±Ç°ÊÇ·ñ»¹ÓĞÒÑÏÔÊ¾½ÚµãÁĞ±í
+            // åˆ¤æ–­å½“å‰æ˜¯å¦è¿˜æœ‰å·²æ˜¾ç¤ºèŠ‚ç‚¹åˆ—è¡¨
             bool exists = false;
             NodeItemInfo new_node_item_info;
             for (auto server_node_item_info : server_node_item_info_list) {
@@ -40,22 +40,22 @@ void SFLGroupTabWidget::InitTabWidget(
                 }
             }
             if (!exists) {
-                // ½ÚµãÒÑ¾­²»´æÔÚ
-                // ÏÈÒÆ³ıtab
+                // èŠ‚ç‚¹å·²ç»ä¸å­˜åœ¨
+                // å…ˆç§»é™¤tab
                 this->removeTab(i);
-                // ÔÙÇå¿Õ
+                // å†æ¸…ç©º
                 tunnel_table_widget->TerminateAllProcess();
                 delete tunnel_table_widget;
                 tunnel_table_widget = nullptr;
             } else {
                 local_node_item_info_list.push_back(new_node_item_info);
-                // ¸üĞÂÁĞ±í
+                // æ›´æ–°åˆ—è¡¨
                 tunnel_table_widget->InitTunnelTableWidget(new_node_item_info);
             }
         }
     }
 
-    // ´´½¨ĞÂ½Úµã
+    // åˆ›å»ºæ–°èŠ‚ç‚¹
     for (auto server_node_item_info : server_node_item_info_list) {
         bool exists = false;
         for (auto local_node_item_info : local_node_item_info_list) {
