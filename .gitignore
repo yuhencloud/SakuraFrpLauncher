@@ -8,3 +8,6 @@
 /SakuraFrpLauncher/SakuraFrpLauncher.aps
 /SakuraFrpLauncher/SakuraFrpLauncher.pro.user
 /QT_Build
+/SakuraFrpLauncher/Makefile.Debug
+/SakuraFrpLauncher/Makefile.Release
+/SakuraFrpLauncher/Makefile
