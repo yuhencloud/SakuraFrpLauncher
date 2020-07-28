@@ -1,7 +1,9 @@
 #include "SFLUtility.h"
 
 #include <QUuid>
+#ifdef Q_OS_WIN
 #include <qt_windows.h>
+#endif
 
 SFLUtility::SFLUtility()
 {

@@ -321,7 +321,8 @@ void SFLTunnelTableWidget::StartProcess(
     } else {
         exe_name = "frpc_windows_amd64.exe";
     }
-#elif Q_OS_LINUX
+#endif
+#ifdef Q_OS_LINUX
     QString exe_name = "frpc_linux_amd64";
 #endif
 
