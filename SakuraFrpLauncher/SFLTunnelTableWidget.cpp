@@ -373,6 +373,12 @@ void SFLTunnelTableWidget::UpdateTable(
         QTableWidgetItem* tunnel_id_item = this->item(i, 1);
         int tunnel_id = tunnel_id_item->text().toInt();
 
+        if (QProcess::Running != m_tunnel_process_map[tunnel_id].process->state()) {
+            m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
+            m_tunnel_process_map[tunnel_id].log_text = "";
+            m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
+        }
+
         // Æô¶¯Ê±¼ä
         this->item(i, 5)->setText(m_tunnel_process_map[tunnel_id].startup_time);
 
