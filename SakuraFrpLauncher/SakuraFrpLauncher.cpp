@@ -22,7 +22,7 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     m_group_tab_widget(nullptr)
 {
     this->setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    this->setFixedSize(880, 400);
+    this->setFixedSize(900, 400);
     QString version = "";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
