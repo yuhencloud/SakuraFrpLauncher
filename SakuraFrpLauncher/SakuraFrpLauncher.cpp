@@ -21,13 +21,13 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     m_cipher_line_edit(nullptr),
     m_group_tab_widget(nullptr)
 {
-    this->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
+    this->setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    this->setFixedSize(860, 400);
     QString version = "";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
     this->setWindowTitle(QString::fromLocal8Bit("SakuraFrpLauncher Powered By 雨痕云") + version);
-    this->setMinimumSize(860, 400);
 
     // 初始化登录
     QWidget* login_widget = InitLoginWidget();

@@ -323,7 +323,7 @@ void SFLTunnelTableWidget::StartProcess(
     }
 #endif
 #ifdef Q_OS_LINUX
-    QString exe_name = "frpc_linux_amd64";
+    QString exe_name = "./frpc_linux_amd64";
 #endif
 
     QString start_parameter = exe_name + " -f " + token + ":" + QString::number(tunnel_id);
@@ -348,12 +348,12 @@ void SFLTunnelTableWidget::OnProcessOutput(
     }
 
     // 判断输出日志级别
-    if (-1 != text.indexOf(" [I] ") && -1 != text.indexOf("start proxy success")) {
+    if (-1 != text.indexOf("[I]") && -1 != text.indexOf("start proxy success")) {
         m_tunnel_process_map[tunnel_id].running_state = e_running_state_info;
-    } else if (-1 != text.indexOf(" [W] ")) {
+    } else if (-1 != text.indexOf("[W]")) {
         m_tunnel_process_map[tunnel_id].running_state = e_running_state_warnning;
         SFLGlobalMgr::GetInstance()->Launcher()->ShowTrayMessage(m_tunnel_process_map[tunnel_id]);
-    } else if (-1 != text.indexOf(" [E] ")) {
+    } else if (-1 != text.indexOf("[E]")) {
         m_tunnel_process_map[tunnel_id].running_state = e_running_state_error;
         SFLGlobalMgr::GetInstance()->Launcher()->ShowTrayMessage(m_tunnel_process_map[tunnel_id]);
     } else {
