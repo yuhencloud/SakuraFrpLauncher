@@ -23,10 +23,6 @@ public:
 
     static QString NextUuid(
     );
-#ifdef Q_OS_WIN
-    static bool Is64BitSystem(
-    );
-#endif
 
 private:
 
