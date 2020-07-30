@@ -23,6 +23,7 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
 {
     this->setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     this->setFixedSize(900, 400);
+    this->setWindowIcon(QIcon(":/Resources/images/icon.ico"));
     QString version = "";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_version, version);
