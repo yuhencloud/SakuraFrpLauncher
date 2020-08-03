@@ -320,6 +320,9 @@ void SFLTunnelTableWidget::StartProcess(
 #ifdef Q_OS_LINUX
     QString exe_name = "frpc_linux";
 #endif
+#ifdef Q_OS_MAC
+    QString exe_name = "frpc_mac";
+#endif
     QString exe_path = "\"" + QDir::toNativeSeparators(QApplication::instance()->applicationDirPath() + "/" + exe_name) + "\"";
     QString start_parameter = exe_path + " -f " + token + ":" + QString::number(tunnel_id);
     m_tunnel_process_map[tunnel_id].process->start(start_parameter);
