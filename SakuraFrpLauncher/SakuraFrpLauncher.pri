@@ -21,7 +21,8 @@ HEADERS += ./resource.h \
     ./SFLLoadingDlg.h \
     ./SFLGlobalMgr.h \
     ./SFLUtility.h \
-    ./SFLMsgBox.h
+    ./SFLMsgBox.h \
+    ./SFLTunnelWidget.h
 SOURCES += ./main.cpp \
     ./SakuraFrpLauncher.cpp \
     ./SFLGroupTabWidget.cpp \
@@ -35,5 +36,6 @@ SOURCES += ./main.cpp \
     ./SFLLoadingDlg.cpp \
     ./SFLGlobalMgr.cpp \
     ./SFLUtility.cpp \
-    ./SFLMsgBox.cpp
+    ./SFLMsgBox.cpp \
+    ./SFLTunnelWidget.cpp
 RESOURCES += SakuraFrpLauncher.qrc
