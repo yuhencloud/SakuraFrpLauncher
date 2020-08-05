@@ -63,17 +63,20 @@
     <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget">
       <UniqueIdentifier>{1bb2425f-1947-429a-b159-8dcbefe22e53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget">
-      <UniqueIdentifier>{f8d56c80-58e3-4e85-8b10-a2556c3c23b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg">
-      <UniqueIdentifier>{add32e34-db75-4cbc-91a7-424d872df037}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SFLTools\SFLUtility">
       <UniqueIdentifier>{297fa3ce-bb0d-4d31-a122-2875bc125909}</UniqueIdentifier>
     </Filter>
     <Filter Include="SFLTools\SFLMsgBox">
       <UniqueIdentifier>{070b320d-007e-462c-88d2-de83dd516944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget">
+      <UniqueIdentifier>{5df09e95-61f6-4b90-8ee0-8f6cde4cd8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget">
+      <UniqueIdentifier>{f8d56c80-58e3-4e85-8b10-a2556c3c23b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget\SFLLogDlg">
+      <UniqueIdentifier>{add32e34-db75-4cbc-91a7-424d872df037}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +168,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="SFLTunnelTableWidget.cpp">
-      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget</Filter>
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelTableWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -174,7 +177,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="SFLLogDlg.cpp">
-      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLLogDlg.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -198,6 +201,15 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SFLMsgBox.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SFLTunnelWidget.cpp">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLTunnelWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,16 +245,19 @@
       <Filter>SakuraFrpLauncher\SFLGroupTabWidget</Filter>
     </CustomBuild>
     <CustomBuild Include="SFLTunnelTableWidget.h">
-      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget</Filter>
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget</Filter>
     </CustomBuild>
     <CustomBuild Include="SFLLogDlg.h">
-      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget\SFLTunnelTableWidget\SFLLogDlg</Filter>
     </CustomBuild>
     <CustomBuild Include="SFLUtility.h">
       <Filter>SFLTools\SFLUtility</Filter>
     </CustomBuild>
     <CustomBuild Include="SFLMsgBox.h">
       <Filter>SFLTools\SFLMsgBox</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SFLTunnelWidget.h">
+      <Filter>SakuraFrpLauncher\SFLGroupTabWidget\SFLTunnelWidget</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

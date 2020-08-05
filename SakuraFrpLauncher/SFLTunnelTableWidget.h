@@ -34,6 +34,14 @@ public:
     void TerminateAllProcess(
     );
 
+    void SetAllCheckBoxState(
+        int state
+    );
+
+    void StartStopSelectedTunnel(
+        bool start
+    );
+
 private:
 
     void ClearTable(

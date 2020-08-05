@@ -1,6 +1,6 @@
 ﻿#include "SFLGroupTabWidget.h"
 
-#include "SFLTunnelTableWidget.h"
+#include "SFLTunnelWidget.h"
 #include "SFLDBMgr.h"
 
 SFLGroupTabWidget::SFLGroupTabWidget(QWidget *parent)
@@ -24,10 +24,10 @@ void SFLGroupTabWidget::InitTabWidget(
     // 删除已经不使用节点信息
     QVector<NodeItemInfo> local_node_item_info_list;
     for (int i = this->count() - 1; i >= 0; --i) {
-        SFLTunnelTableWidget* tunnel_table_widget = dynamic_cast<SFLTunnelTableWidget*>(this->widget(i));
-        if (nullptr != tunnel_table_widget) {
+        SFLTunnelWidget* tunnel_widget = dynamic_cast<SFLTunnelWidget*>(this->widget(i));
+        if (nullptr != tunnel_widget) {
             NodeItemInfo node_item_info;
-            tunnel_table_widget->GetNodeItemInfo(node_item_info);
+            tunnel_widget->GetNodeItemInfo(node_item_info);
 
             // 判断当前是否还有已显示节点列表
             bool exists = false;
@@ -44,13 +44,13 @@ void SFLGroupTabWidget::InitTabWidget(
                 // 先移除tab
                 this->removeTab(i);
                 // 再清空
-                tunnel_table_widget->TerminateAllProcess();
-                delete tunnel_table_widget;
-                tunnel_table_widget = nullptr;
+                tunnel_widget->TerminateAllProcess();
+                delete tunnel_widget;
+                tunnel_widget = nullptr;
             } else {
                 local_node_item_info_list.push_back(new_node_item_info);
                 // 更新列表
-                tunnel_table_widget->InitTunnelTableWidget(new_node_item_info);
+                tunnel_widget->InitTunnelWidget(new_node_item_info);
             }
         }
     }
@@ -65,9 +65,9 @@ void SFLGroupTabWidget::InitTabWidget(
             }
         }
         if (!exists) {
-            SFLTunnelTableWidget* tunnel_table_widget = new SFLTunnelTableWidget(this);
-            tunnel_table_widget->InitTunnelTableWidget(server_node_item_info);
-            this->addTab(tunnel_table_widget, server_node_item_info.node_name);
+            SFLTunnelWidget* tunnel_widget = new SFLTunnelWidget(this);
+            tunnel_widget->InitTunnelWidget(server_node_item_info);
+            this->addTab(tunnel_widget, server_node_item_info.node_name);
         }
     }
 }

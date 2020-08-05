@@ -117,6 +117,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelTableWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLTunnelWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLUtility.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -162,6 +165,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SFLTunnelTableWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLTunnelWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SFLUtility.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -178,6 +184,7 @@
     <ClCompile Include="SFLNetworkAccessManager.cpp" />
     <ClCompile Include="SFLNetworkMgr.cpp" />
     <ClCompile Include="SFLTunnelTableWidget.cpp" />
+    <ClCompile Include="SFLTunnelWidget.cpp" />
     <ClCompile Include="SFLUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +262,16 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="SFLCommonDefs.h" />
+    <CustomBuild Include="SFLTunnelWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLTunnelWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLTunnelWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+    </CustomBuild>
     <CustomBuild Include="SFLMsgBox.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLMsgBox.h...</Message>

@@ -9,6 +9,7 @@
 #include <QProcess>
 #include <QDateTime>
 #include <QTimer>
+#include <QCheckBox>
 
 #include "SFLDBMgr.h"
 #include "SFLGlobalMgr.h"
@@ -159,13 +160,9 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         int col_index = 0;
         TunnelItemInfo tunnel_item_info = m_tunnel_process_map[m_tunnel_process_map.keys()[i]].tunnel_item_info;
 
-        QTableWidgetItem* index_item = new QTableWidgetItem();
-        QString index = QString::number(i + 1);
-        index_item->setText(index);
-        index_item->setToolTip(index);
-        index_item->setTextAlignment(Qt::AlignCenter);
-        index_item->setFlags(index_item->flags() & (~Qt::ItemIsEditable));
-        this->setItem(i, col_index++, index_item);
+        QCheckBox* index_check_box = new QCheckBox(this);
+        index_check_box->setText(QString::number(i + 1));
+        this->setCellWidget(i, col_index++, index_check_box);
 
         QTableWidgetItem* tunnel_id_item = new QTableWidgetItem();
         QString tunnel_id = QString::number(tunnel_item_info.tunnel_id);
@@ -436,4 +433,48 @@ void SFLTunnelTableWidget::UpdateTable(
 void SFLTunnelTableWidget::OnTimeout(
 ) {
     UpdateTable();
+}
+
+void SFLTunnelTableWidget::SetAllCheckBoxState(
+    int state
+) {
+    for (int i = 0; i < this->rowCount(); ++i) {
+        QCheckBox* index_chech_box = dynamic_cast<QCheckBox*>(this->cellWidget(i, 0));
+        if (nullptr != index_chech_box) {
+            index_chech_box->setCheckState(Qt::CheckState(state));
+        }
+    }
+}
+
+void SFLTunnelTableWidget::StartStopSelectedTunnel(
+    bool start
+) {
+    for (int i = 0; i < this->rowCount(); ++i) {
+        QCheckBox* index_chech_box = dynamic_cast<QCheckBox*>(this->cellWidget(i, 0));
+        if (nullptr == index_chech_box) {
+            continue;
+        }
+        if (!index_chech_box->isChecked()) {
+            continue;
+        }
+        // 获取tunnel id
+        int tunnel_id = this->item(i, 1)->text().toInt();
+        if (start) {
+            if (QProcess::NotRunning == m_tunnel_process_map[tunnel_id].process->state()) {
+                // 当前未启动，则启动
+                StartProcess(tunnel_id);
+            }
+        } else {
+            if (QProcess::NotRunning != m_tunnel_process_map[tunnel_id].process->state()) {
+                // 当前启动，则停止
+                m_tunnel_process_map[tunnel_id].process->terminate();
+                m_tunnel_process_map[tunnel_id].process->kill();
+                m_tunnel_process_map[tunnel_id].process->waitForFinished();
+                m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
+                m_tunnel_process_map[tunnel_id].log_text = "";
+                m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
+            }
+        }
+        UpdateTable();
+    }
 }
