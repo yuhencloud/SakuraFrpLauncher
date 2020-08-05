@@ -269,10 +269,8 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
     QProcess::ProcessState state = m_tunnel_process_map[tunnel_id].process->state();
     if (QProcess::NotRunning == m_tunnel_process_map[tunnel_id].process->state()) {
         StartProcess(tunnel_id);
-        m_tunnel_process_map[tunnel_id].process->waitForStarted();
     } else {
         StopProcess(tunnel_id);
-        m_tunnel_process_map[tunnel_id].process->waitForFinished();
     }
     UpdateTable();
 }
@@ -304,6 +302,7 @@ void SFLTunnelTableWidget::StartProcess(
     QString exe_path = "\"" + QDir::toNativeSeparators(QApplication::instance()->applicationDirPath() + "/" + exe_name) + "\"";
     QString start_parameter = exe_path + " -f " + token + ":" + QString::number(tunnel_id);
     m_tunnel_process_map[tunnel_id].process->start(start_parameter);
+    m_tunnel_process_map[tunnel_id].process->waitForStarted();
     m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 }
 
@@ -312,6 +311,7 @@ void SFLTunnelTableWidget::StopProcess(
 ) {
     m_tunnel_process_map[tunnel_id].process->terminate();
     m_tunnel_process_map[tunnel_id].process->kill();
+    m_tunnel_process_map[tunnel_id].process->waitForFinished();
     m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
     m_tunnel_process_map[tunnel_id].log_text = "";
     m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
@@ -351,6 +351,19 @@ void SFLTunnelTableWidget::OnProcessOutput(
 void SFLTunnelTableWidget::OnProcessStateChanged(
     QProcess::ProcessState state
 ) {
+    int tunnel_id = 0;
+    QProcess* process = dynamic_cast<QProcess*>(this->sender());
+    for (auto key : m_tunnel_process_map.keys()) {
+        if (m_tunnel_process_map[key].process == process) {
+            tunnel_id = key;
+            break;
+        }
+    }
+    if (QProcess::Running != m_tunnel_process_map[tunnel_id].process->state()) {
+        m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
+        m_tunnel_process_map[tunnel_id].log_text = "";
+        m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
+    }
     UpdateTable();
 }
 
@@ -359,12 +372,6 @@ void SFLTunnelTableWidget::UpdateTable(
     for (int i = 0; i < this->rowCount(); ++i) {
         QTableWidgetItem* tunnel_id_item = this->item(i, 1);
         int tunnel_id = tunnel_id_item->text().toInt();
-
-        if (QProcess::Running != m_tunnel_process_map[tunnel_id].process->state()) {
-            m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
-            m_tunnel_process_map[tunnel_id].log_text = "";
-            m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
-        }
 
         // 启动时间
         this->item(i, 5)->setText(m_tunnel_process_map[tunnel_id].startup_time);
@@ -461,6 +468,6 @@ void SFLTunnelTableWidget::StartStopSelectedTunnel(
                 StopProcess(tunnel_id);
             }
         }
-        UpdateTable();
     }
+    UpdateTable();
 }
