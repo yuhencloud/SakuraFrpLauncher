@@ -6,10 +6,6 @@
 #include <QVector>
 #include <QProcess>
 
-#ifdef Q_OS_MAC
-#define nullptr 0
-#endif
-
 const QString sakura_frp_domain = "https://api.natfrp.com/";
 const QString uri_get_nodes = "launcher/get_nodes?";
 const QString uri_get_tunnels = "launcher/get_tunnels?";
