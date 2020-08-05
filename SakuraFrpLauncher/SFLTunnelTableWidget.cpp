@@ -107,13 +107,9 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
                 }
             }
             if (!exists) {
-                m_tunnel_process_map[key].process->terminate();
-                m_tunnel_process_map[key].process->kill();
+                StopProcess(key);
                 delete m_tunnel_process_map[key].process;
                 m_tunnel_process_map[key].process = nullptr;
-                m_tunnel_process_map[key].startup_time = invalid_symbol;
-                m_tunnel_process_map[key].log_text = "";
-                m_tunnel_process_map[key].running_state = e_running_state_none;
                 m_tunnel_process_map.remove(key);
             } else {
                 m_tunnel_process_map[key].tunnel_item_info = new_tunnel_item_info;
@@ -263,11 +259,7 @@ void SFLTunnelTableWidget::GetNodeItemInfo(
 void SFLTunnelTableWidget::TerminateAllProcess(
 ) {
     for (auto key : m_tunnel_process_map.keys()) {
-        m_tunnel_process_map[key].process->terminate();
-        m_tunnel_process_map[key].process->kill();
-        m_tunnel_process_map[key].startup_time = invalid_symbol;
-        m_tunnel_process_map[key].log_text = "";
-        m_tunnel_process_map[key].running_state = e_running_state_none;
+        StopProcess(key);
     }
 }
 
@@ -278,20 +270,9 @@ void SFLTunnelTableWidget::OnStartStopBtnClicked(
     if (QProcess::NotRunning == m_tunnel_process_map[tunnel_id].process->state()) {
         StartProcess(tunnel_id);
         m_tunnel_process_map[tunnel_id].process->waitForStarted();
-    } else if (QProcess::Running == m_tunnel_process_map[tunnel_id].process->state()) {
-        m_tunnel_process_map[tunnel_id].process->terminate();
-        m_tunnel_process_map[tunnel_id].process->kill();
+    } else {
+        StopProcess(tunnel_id);
         m_tunnel_process_map[tunnel_id].process->waitForFinished();
-        m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
-        m_tunnel_process_map[tunnel_id].log_text = "";
-        m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
-    } else if (QProcess::Starting == m_tunnel_process_map[tunnel_id].process->state()) {
-        m_tunnel_process_map[tunnel_id].process->terminate();
-        m_tunnel_process_map[tunnel_id].process->kill();
-        m_tunnel_process_map[tunnel_id].process->waitForFinished();
-        m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
-        m_tunnel_process_map[tunnel_id].log_text = "";
-        m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
     }
     UpdateTable();
 }
@@ -324,6 +305,16 @@ void SFLTunnelTableWidget::StartProcess(
     QString start_parameter = exe_path + " -f " + token + ":" + QString::number(tunnel_id);
     m_tunnel_process_map[tunnel_id].process->start(start_parameter);
     m_tunnel_process_map[tunnel_id].startup_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+}
+
+void SFLTunnelTableWidget::StopProcess(
+    const int& tunnel_id
+) {
+    m_tunnel_process_map[tunnel_id].process->terminate();
+    m_tunnel_process_map[tunnel_id].process->kill();
+    m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
+    m_tunnel_process_map[tunnel_id].log_text = "";
+    m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
 }
 
 void SFLTunnelTableWidget::OnProcessOutput(
@@ -467,12 +458,7 @@ void SFLTunnelTableWidget::StartStopSelectedTunnel(
         } else {
             if (QProcess::NotRunning != m_tunnel_process_map[tunnel_id].process->state()) {
                 // 当前启动，则停止
-                m_tunnel_process_map[tunnel_id].process->terminate();
-                m_tunnel_process_map[tunnel_id].process->kill();
-                m_tunnel_process_map[tunnel_id].process->waitForFinished();
-                m_tunnel_process_map[tunnel_id].startup_time = invalid_symbol;
-                m_tunnel_process_map[tunnel_id].log_text = "";
-                m_tunnel_process_map[tunnel_id].running_state = e_running_state_none;
+                StopProcess(tunnel_id);
             }
         }
         UpdateTable();

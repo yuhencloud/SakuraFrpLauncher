@@ -54,6 +54,10 @@ private:
         const int& tunnel_id
     );
 
+    void StopProcess(
+        const int& tunnel_id
+    );
+
 private slots:
 
     void OnStartStopBtnClicked(
