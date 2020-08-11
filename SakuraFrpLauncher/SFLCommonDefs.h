@@ -44,6 +44,7 @@ typedef struct {
     QString node_name;
     int node_accept_new;
 }NodeItemInfo;
+Q_DECLARE_METATYPE(NodeItemInfo);
 
 typedef struct {
     bool success;
@@ -65,6 +66,12 @@ typedef struct {
     QString message;
     QVector<TunnelItemInfo> tunnel_item_info_list;
 }TunnelInfo;
+
+typedef struct {
+    bool success;
+    QString message;
+    TunnelItemInfo tunnel_item_info;
+}CreateTunnelInfo;
 
 typedef struct {
     QProcess* process;

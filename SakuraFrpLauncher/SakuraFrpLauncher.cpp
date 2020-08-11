@@ -14,6 +14,7 @@
 #include "SFLJsonHelper.h"
 #include "SFLGroupTabWidget.h"
 #include "SFLMsgBox.h"
+#include "SFLCreateTunnelDlg.h"
 
 SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
     : SFLDialogBase(parent),
@@ -63,6 +64,10 @@ SakuraFrpLauncher::SakuraFrpLauncher(QWidget *parent)
         m_auto_get_tunnel_timer->start(auto_get_tunnel_time.toInt());
     }
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+
+    // 创建隧道
+    m_create_tunnel_dlg = new SFLCreateTunnelDlg(this);
+    m_create_tunnel_dlg->hide();
 }
 
 SakuraFrpLauncher::~SakuraFrpLauncher()
@@ -154,19 +159,23 @@ void SakuraFrpLauncher::closeEvent(
 
 QWidget* SakuraFrpLauncher::InitLoginWidget(
 ) {
-    QWidget* login_widget = new QWidget(this);
-    QHBoxLayout* login_widget_h_layout = new QHBoxLayout(login_widget);
+    QWidget* tunnel_widget = new QWidget(this);
+    QHBoxLayout* login_widget_h_layout = new QHBoxLayout(tunnel_widget);
     login_widget_h_layout->setContentsMargins(QMargins(0, 0, 0, 0));
-    m_cipher_line_edit = new QLineEdit(login_widget);
+    m_cipher_line_edit = new QLineEdit(tunnel_widget);
     m_cipher_line_edit->setObjectName("SakuraFrpLauncher_cipher_line_edit");
     m_cipher_line_edit->setPlaceholderText(QString::fromLocal8Bit("请输入登录密钥"));
     m_cipher_line_edit->setEchoMode(QLineEdit::Password);
 
-    QPushButton* login_btn = new QPushButton(login_widget);
-    login_btn->setText(QString::fromLocal8Bit("获取隧道"));
-    connect(login_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnLoginBtnClicked);
+    QPushButton* get_tunnel_btn = new QPushButton(tunnel_widget);
+    get_tunnel_btn->setText(QString::fromLocal8Bit("获取隧道"));
+    connect(get_tunnel_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnGetTunnelBtnClicked);
 
-    m_auto_get_tunnel_check_box = new QCheckBox(login_widget);
+    QPushButton* create_tunnel_btn = new QPushButton(tunnel_widget);
+    create_tunnel_btn->setText(QString::fromLocal8Bit("创建隧道"));
+    connect(create_tunnel_btn, &QPushButton::clicked, this, &SakuraFrpLauncher::OnCreateTunnelBtnClicked);
+
+    m_auto_get_tunnel_check_box = new QCheckBox(tunnel_widget);
     m_auto_get_tunnel_check_box->setText(QString::fromLocal8Bit("自动获取隧道"));
     QString auto_get_tunnel = "0";
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
@@ -178,7 +187,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     }
     connect(m_auto_get_tunnel_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoGetTunnelCheckBoxStateChanged(int)));
 
-    m_auto_start_process_check_box = new QCheckBox(login_widget);
+    m_auto_start_process_check_box = new QCheckBox(tunnel_widget);
     m_auto_start_process_check_box->setText(QString::fromLocal8Bit("自动启动隧道"));
     QString auto_start_process = "0";
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_auto_start_process, auto_start_process);
@@ -189,7 +198,7 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     }
     connect(m_auto_start_process_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnAutoStartProcessCheckBoxStateChanged(int)));
 
-    m_tray_message_check_box = new QCheckBox(login_widget);
+    m_tray_message_check_box = new QCheckBox(tunnel_widget);
     m_tray_message_check_box->setText(QString::fromLocal8Bit("托盘通知"));
     QString tray_message = "0";
     SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_tray_message, tray_message);
@@ -201,13 +210,14 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     connect(m_tray_message_check_box, SIGNAL(stateChanged(int)), this, SLOT(OnTrayMessageCheckBoxStateChanged(int)));
 
     login_widget_h_layout->addWidget(m_cipher_line_edit);
-    login_widget_h_layout->addWidget(login_btn);
+    login_widget_h_layout->addWidget(get_tunnel_btn);
+    login_widget_h_layout->addWidget(create_tunnel_btn);
     login_widget_h_layout->addStretch();
     login_widget_h_layout->addWidget(m_auto_get_tunnel_check_box);
     login_widget_h_layout->addWidget(m_auto_start_process_check_box);
     login_widget_h_layout->addWidget(m_tray_message_check_box);
 
-    login_widget->setLayout(login_widget_h_layout);
+    tunnel_widget->setLayout(login_widget_h_layout);
 
     // 读取存储的token
     QString token = "";
@@ -215,16 +225,22 @@ QWidget* SakuraFrpLauncher::InitLoginWidget(
     SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
     m_cipher_line_edit->setText(token);
 
-    return login_widget;
+    return tunnel_widget;
 }
 
-void SakuraFrpLauncher::OnLoginBtnClicked(
+void SakuraFrpLauncher::OnGetTunnelBtnClicked(
 ) {
     SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
     login_dlg->SetText(QString::fromLocal8Bit("正在获取隧道列表..."));
     login_dlg->show();
     InitTabWidget();
     login_dlg->hide();
+}
+
+void SakuraFrpLauncher::OnCreateTunnelBtnClicked(
+) {
+    m_create_tunnel_dlg->InitCreateTunnelDlg();
+    m_create_tunnel_dlg->show();
 }
 
 void SakuraFrpLauncher::InitTabWidget(

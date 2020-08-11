@@ -30,6 +30,11 @@ public:
         TunnelInfo& tunnel_info
     );
 
+    bool ParseCreateTunnelStringToStruct(
+        const QString& create_tunnel_json,
+        CreateTunnelInfo& create_tunnel_info
+    );
+
 private:
 
     

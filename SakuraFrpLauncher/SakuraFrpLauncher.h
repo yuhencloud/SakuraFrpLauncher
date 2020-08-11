@@ -13,6 +13,7 @@ class QLineEdit;
 class QCheckBox;
 class SFLGroupTabWidget;
 class QTimer;
+class SFLCreateTunnelDlg;
 
 class SakuraFrpLauncher : public SFLDialogBase
 {
@@ -27,6 +28,11 @@ public:
 
     void ShowTrayMessage(
         const TunnelProcess& tunnel_process
+    );
+
+public slots:
+
+    void OnGetTunnelBtnClicked(
     );
 
 protected:
@@ -67,7 +73,7 @@ private slots:
     void OnCloseAction(
     );
 
-    void OnLoginBtnClicked(
+    void OnCreateTunnelBtnClicked(
     );
 
     void OnAutoGetTunnelCheckBoxStateChanged(
@@ -94,6 +100,7 @@ private:
     QCheckBox* m_tray_message_check_box;
     SFLGroupTabWidget* m_group_tab_widget;
     QTimer* m_auto_get_tunnel_timer;
+    SFLCreateTunnelDlg* m_create_tunnel_dlg;
 
 };
 

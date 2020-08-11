@@ -84,6 +84,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_SakuraFrpLauncher.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SFLCreateTunnelDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SFLDBMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -132,6 +135,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SakuraFrpLauncher.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SFLCreateTunnelDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_SFLDBMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -173,6 +179,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SakuraFrpLauncher.cpp" />
+    <ClCompile Include="SFLCreateTunnelDlg.cpp" />
     <ClCompile Include="SFLDBMgr.cpp" />
     <ClCompile Include="SFLDialogBase.cpp" />
     <ClCompile Include="SFLGlobalMgr.cpp" />
@@ -262,6 +269,16 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="SFLCommonDefs.h" />
+    <CustomBuild Include="SFLCreateTunnelDlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLCreateTunnelDlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing SFLCreateTunnelDlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_UNICODE "-I.\GeneratedFiles" "-I." "-I.\..\QT_Build\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I.\..\QT_Build\include\QtCore" "-I.\..\QT_Build\include\QtGui" "-I.\..\QT_Build\include\QtWidgets" "-I.\..\QT_Build\include\QtSql" "-I.\..\QT_Build\include\QtNetwork"</Command>
+    </CustomBuild>
     <CustomBuild Include="SFLTunnelWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing SFLTunnelWidget.h...</Message>
