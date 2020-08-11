@@ -256,7 +256,7 @@ void SakuraFrpLauncher::InitTabWidget(
     QString node_url = sakura_frp_domain + uri_get_nodes;
     node_url += "token=" + token;
     QString node_retsult = "";
-    SFLNetworkMgr().GetData(node_url, node_retsult, 20000);
+    SFLNetworkMgr().GetData(node_url, node_retsult, 60000);
 
     // 进行json解析
     NodeInfo node_info;
@@ -284,7 +284,7 @@ void SakuraFrpLauncher::InitTabWidget(
     QString tunnel_url = sakura_frp_domain + uri_get_tunnels;
     tunnel_url += "token=" + token;
     QString tunnel_retsult = "";
-    SFLNetworkMgr().GetData(tunnel_url, tunnel_retsult, 20000);
+    SFLNetworkMgr().GetData(tunnel_url, tunnel_retsult, 60000);
 
     // 禁用输入框，不再允许修改密钥
     m_cipher_line_edit->setDisabled(true);

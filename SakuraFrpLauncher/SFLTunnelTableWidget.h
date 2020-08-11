@@ -42,6 +42,9 @@ public:
         bool start
     );
 
+    void DeleteSelectedTunnel(
+    );
+
 private:
 
     void ClearTable(

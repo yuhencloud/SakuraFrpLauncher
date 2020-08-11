@@ -74,6 +74,11 @@ typedef struct {
 }CreateTunnelInfo;
 
 typedef struct {
+    bool success;
+    QString message;
+}DeleteTunnelInfo;
+
+typedef struct {
     QProcess* process;
     QString startup_time;
     QString log_text;

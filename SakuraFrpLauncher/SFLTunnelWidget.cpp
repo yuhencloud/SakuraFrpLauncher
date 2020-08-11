@@ -5,6 +5,7 @@
 #include <QPushButton>
 
 #include "SFLTunnelTableWidget.h"
+#include "SFLMsgBox.h"
 
 SFLTunnelWidget::SFLTunnelWidget(QWidget *parent)
     : QWidget(parent),
@@ -24,11 +25,16 @@ SFLTunnelWidget::SFLTunnelWidget(QWidget *parent)
     stop_selected_btn->setText(QString::fromLocal8Bit("停止所选隧道"));
     connect(stop_selected_btn, &QPushButton::clicked, this, &SFLTunnelWidget::OnStopSelectedBtnClicked);
 
+    QPushButton* delete_selected_btn = new QPushButton(tool_widget);
+    delete_selected_btn->setText(QString::fromLocal8Bit("删除所选隧道"));
+    connect(delete_selected_btn, &QPushButton::clicked, this, &SFLTunnelWidget::OnDeleteSelectedBtnClicked);
+
     QHBoxLayout* tool_widget_h_layout = new QHBoxLayout(tool_widget);
     tool_widget_h_layout->setMargin(0);
     tool_widget_h_layout->addWidget(m_select_all_check_box);
     tool_widget_h_layout->addWidget(start_selected_btn);
     tool_widget_h_layout->addWidget(stop_selected_btn);
+    tool_widget_h_layout->addWidget(delete_selected_btn);
     tool_widget_h_layout->addStretch();
     tool_widget->setLayout(tool_widget_h_layout);
 
@@ -76,4 +82,14 @@ void SFLTunnelWidget::OnStartSelectedBtnClicked(
 void SFLTunnelWidget::OnStopSelectedBtnClicked(
 ) {
     m_tunnel_table_widget->StartStopSelectedTunnel(false);
+}
+
+void SFLTunnelWidget::OnDeleteSelectedBtnClicked(
+) {
+    SFLMsgBox::GetInstance()->SetBoxType(e_warning_type_yes_no);
+    SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("确定删除所选隧道吗"));
+    if (SFLMsgBox::GetInstance()->exec() == QMessageBox::No) {
+        return;
+    }
+    m_tunnel_table_widget->DeleteSelectedTunnel();
 }

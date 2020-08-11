@@ -43,6 +43,9 @@ private slots:
     void OnStopSelectedBtnClicked(
     );
 
+    void OnDeleteSelectedBtnClicked(
+    );
+
 private:
 
     QCheckBox* m_select_all_check_box;

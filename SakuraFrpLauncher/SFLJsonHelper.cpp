@@ -116,3 +116,26 @@ bool SFLJsonHelper::ParseCreateTunnelStringToStruct(
     create_tunnel_info.tunnel_item_info.node_item_info.node_id = data_obj.take("node").toInt();
     return true;
 }
+
+bool SFLJsonHelper::ParseDeleteTunnelStringToStruct(
+    const QString& delete_tunnel_json,
+    DeleteTunnelInfo& delete_tunnel_info
+) {
+    QJsonParseError json_error;
+    QJsonDocument parse_doucment = QJsonDocument::fromJson(delete_tunnel_json.toUtf8(), &json_error);
+    if (json_error.error != QJsonParseError::NoError) {
+        return false;
+    }
+    if (!parse_doucment.isObject()) {
+        return false;
+    }
+    QJsonObject obj;
+    obj = parse_doucment.object();
+
+    delete_tunnel_info.success = obj.take("success").toBool();
+    if (!delete_tunnel_info.success) {
+        delete_tunnel_info.message = obj.take("message").toString();
+        return true;
+    }
+    return true;
+}

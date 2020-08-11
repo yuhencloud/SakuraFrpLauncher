@@ -10,11 +10,16 @@
 #include <QDateTime>
 #include <QTimer>
 #include <QCheckBox>
+#include <QHash>
+#include <QPair>
 
 #include "SFLDBMgr.h"
 #include "SFLGlobalMgr.h"
 #include "SFLLogDlg.h"
 #include "SFLUtility.h"
+#include "SFLMsgBox.h"
+#include "SFLNetworkMgr.h"
+#include "SFLJsonHelper.h"
 
 SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     : QTableWidget(parent),
@@ -470,4 +475,75 @@ void SFLTunnelTableWidget::StartStopSelectedTunnel(
         }
     }
     UpdateTable();
+}
+
+void SFLTunnelTableWidget::DeleteSelectedTunnel(
+) {
+    // 停止当前选中隧道
+    StartStopSelectedTunnel(false);
+
+    SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
+    login_dlg->SetText(QString::fromLocal8Bit("正在删除隧道..."));
+    login_dlg->show();
+
+    // 删除当前选中隧道
+    QHash<int, QPair<bool, DeleteTunnelInfo>> tunnel_id_delete_tunnel_info_hash;
+    for (int i = 0; i < this->rowCount(); ++i) {
+        QCheckBox* index_chech_box = dynamic_cast<QCheckBox*>(this->cellWidget(i, 0));
+        if (nullptr == index_chech_box) {
+            continue;
+        }
+        if (!index_chech_box->isChecked()) {
+            continue;
+        }
+        // 获取tunnel id
+        int tunnel_id = this->item(i, 1)->text().toInt();
+        QString delete_tunnel_url = sakura_frp_domain + uri_delete_tunnel;
+        QString token = "";
+        QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+        SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
+        SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+        delete_tunnel_url +=
+            "token=" + token
+            + "&tunnel=" + QString::number(tunnel_id);
+        QString delete_tunnel_json = "";
+        SFLNetworkMgr().GetData(delete_tunnel_url, delete_tunnel_json, 60000);
+
+        DeleteTunnelInfo delete_tunnel_info;
+        bool delete_tunnel_suc = SFLJsonHelper().ParseDeleteTunnelStringToStruct(delete_tunnel_json, delete_tunnel_info);
+        tunnel_id_delete_tunnel_info_hash[tunnel_id] = QPair<bool, DeleteTunnelInfo>(delete_tunnel_suc, delete_tunnel_info);
+    }
+
+    login_dlg->hide();
+
+    // 组合弹出框
+    SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+    QString text = "";
+    bool is_success = true;
+    QHash<int, QPair<bool, DeleteTunnelInfo>>::iterator it = tunnel_id_delete_tunnel_info_hash.begin();
+    for (; it != tunnel_id_delete_tunnel_info_hash.end(); ++it) {
+        if (it.value().first && it.value().second.success) {
+            continue;
+        }
+        is_success = false;
+        if (!it.value().first) {
+            text += QString::number(it.key()) + ":" + QString::fromLocal8Bit("网络或服务器错误，请稍后重试") + "\t";
+        } else {
+            if (!it.value().second.success) {
+                text += QString::number(it.key()) + ":" + it.value().second.message + "\t";
+            }
+        }
+    }
+    
+    if (is_success) {
+        text = QString::fromLocal8Bit("删除成功");
+    } else {
+        text = QString::fromLocal8Bit("删除失败") + "\t" + text;
+    }
+
+    SFLMsgBox::GetInstance()->setText(text);
+    SFLMsgBox::GetInstance()->exec();
+
+    // 刷新列表
+    SFLGlobalMgr::GetInstance()->Launcher()->OnGetTunnelBtnClicked();
 }

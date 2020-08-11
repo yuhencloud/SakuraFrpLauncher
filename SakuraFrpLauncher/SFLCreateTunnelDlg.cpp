@@ -176,7 +176,7 @@ void SFLCreateTunnelDlg::OnCreateTunnelBtnClicked(
         + "&compression=" + compression
         + "&remote_port=" + remote_port;
     QString create_tunnel_json = "";
-    SFLNetworkMgr().GetData(create_tunnel_url, create_tunnel_json, 20000);
+    SFLNetworkMgr().GetData(create_tunnel_url, create_tunnel_json, 60000);
     login_dlg->hide();
 
     CreateTunnelInfo create_tunnel_info;

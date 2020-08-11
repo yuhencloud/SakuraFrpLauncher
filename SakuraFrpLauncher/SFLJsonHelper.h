@@ -35,9 +35,10 @@ public:
         CreateTunnelInfo& create_tunnel_info
     );
 
-private:
-
-    
+    bool ParseDeleteTunnelStringToStruct(
+        const QString& delete_tunnel_json,
+        DeleteTunnelInfo& delete_tunnel_info
+    );
 
 private:
 
