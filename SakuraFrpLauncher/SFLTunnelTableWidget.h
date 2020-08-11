@@ -71,6 +71,10 @@ private slots:
         const int& tunnel_id
     );
 
+    void OnDeleteBtnClicked(
+        const int& tunnel_id
+    );
+
     void OnProcessOutput(
     );
 
@@ -87,6 +91,7 @@ private:
     QTimer* m_timer;
     QSignalMapper* m_start_stop_mapper;
     QSignalMapper* m_check_log_mapper;
+    QSignalMapper* m_delete_mapper;
     SFLLogDlg* m_log_dlg;
     QMap<int, TunnelProcess> m_tunnel_process_map;
 

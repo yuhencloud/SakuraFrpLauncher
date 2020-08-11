@@ -26,6 +26,7 @@ SFLTunnelTableWidget::SFLTunnelTableWidget(QWidget *parent)
     m_timer(nullptr),
     m_start_stop_mapper(nullptr),
     m_check_log_mapper(nullptr),
+    m_delete_mapper(nullptr),
     m_log_dlg(nullptr)
 {
     this->setColumnCount(10);
@@ -93,6 +94,12 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         temp_mapper->deleteLater();
         m_check_log_mapper = nullptr;
     }
+    if (nullptr != m_delete_mapper) {
+        disconnect(m_delete_mapper, SIGNAL(mapped(int)), this, SLOT(OnDeleteBtnClicked(int)));
+        QSignalMapper* temp_mapper = m_delete_mapper;
+        temp_mapper->deleteLater();
+        m_delete_mapper = nullptr;
+    }
 
     // 获取新的节点隧道列表
     QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
@@ -154,6 +161,8 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
     connect(m_start_stop_mapper, SIGNAL(mapped(int)), this, SLOT(OnStartStopBtnClicked(int)));
     m_check_log_mapper = new QSignalMapper();
     connect(m_check_log_mapper, SIGNAL(mapped(int)), this, SLOT(OnCheckLogBtnClicked(int)));
+    m_delete_mapper = new QSignalMapper();
+    connect(m_delete_mapper, SIGNAL(mapped(int)), this, SLOT(OnDeleteBtnClicked(int)));
 
     this->setRowCount(tunnel_item_info_list.size());
     // 初始化列表
@@ -244,10 +253,20 @@ void SFLTunnelTableWidget::InitTunnelTableWidget(
         connect(check_log_btn, SIGNAL(clicked()), m_check_log_mapper, SLOT(map()));
         m_check_log_mapper->setMapping(check_log_btn, tunnel_item_info.tunnel_id);
 
+        QPushButton* delete_btn = new QPushButton(container_widget);
+        delete_btn->setObjectName("SFLTunnelTableWidget_delete_btn");
+        delete_btn->setFixedSize(16, 16);
+        delete_btn->setToolTip(QString::fromLocal8Bit("删除隧道"));
+        delete_btn->setCursor(Qt::PointingHandCursor);
+        connect(delete_btn, SIGNAL(clicked()), m_delete_mapper, SLOT(map()));
+        m_delete_mapper->setMapping(delete_btn, tunnel_item_info.tunnel_id);
+
         container_widget_h_layout->addStretch();
         container_widget_h_layout->addWidget(start_stop_btn);
         container_widget_h_layout->addSpacing(10);
         container_widget_h_layout->addWidget(check_log_btn);
+        container_widget_h_layout->addSpacing(10);
+        container_widget_h_layout->addWidget(delete_btn);
         container_widget_h_layout->addStretch();
         container_widget->setLayout(container_widget_h_layout);
         this->setCellWidget(i, this->columnCount() - 1, container_widget);
@@ -285,6 +304,55 @@ void SFLTunnelTableWidget::OnCheckLogBtnClicked(
 ) {
     m_log_dlg->UpdateLog(m_tunnel_process_map[tunnel_id]);
     m_log_dlg->show();
+}
+
+void SFLTunnelTableWidget::OnDeleteBtnClicked(
+    const int& tunnel_id
+) {
+    SFLMsgBox::GetInstance()->SetBoxType(e_warning_type_yes_no);
+    SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("确定删除所选隧道吗"));
+    if (SFLMsgBox::GetInstance()->exec() == QMessageBox::No) {
+        return;
+    }
+
+    SFLLoadingDlg* login_dlg = SFLGlobalMgr::GetInstance()->LoadingDlg();
+    login_dlg->SetText(QString::fromLocal8Bit("正在删除隧道..."));
+    login_dlg->show();
+
+    QString delete_tunnel_url = sakura_frp_domain + uri_delete_tunnel;
+    QString token = "";
+    QSqlDatabase db = SFLDBMgr::GetInstance()->GetSqlConn();
+    SFLDBMgr::GetInstance()->GetValueByKey(db, sfl_token, token);
+    SFLDBMgr::GetInstance()->GiveBackSqlConn(db);
+    delete_tunnel_url +=
+        "token=" + token
+        + "&tunnel=" + QString::number(tunnel_id);
+    QString delete_tunnel_json = "";
+    SFLNetworkMgr().GetData(delete_tunnel_url, delete_tunnel_json, 60000);
+
+    login_dlg->hide();
+
+    DeleteTunnelInfo delete_tunnel_info;
+    bool delete_tunnel_suc = SFLJsonHelper().ParseDeleteTunnelStringToStruct(delete_tunnel_json, delete_tunnel_info);
+    if (!delete_tunnel_suc) {
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("网络或服务器错误，请稍后重试"));
+        SFLMsgBox::GetInstance()->show();
+        return;
+    }
+    if (!delete_tunnel_info.success) {
+        SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+        SFLMsgBox::GetInstance()->setText(delete_tunnel_info.message);
+        SFLMsgBox::GetInstance()->show();
+        return;
+    }
+
+    SFLMsgBox::GetInstance()->SetBoxType(e_information_type_ok);
+    SFLMsgBox::GetInstance()->setText(QString::fromLocal8Bit("删除成功"));
+    SFLMsgBox::GetInstance()->exec();
+
+    // 刷新列表
+    SFLGlobalMgr::GetInstance()->Launcher()->OnGetTunnelBtnClicked();
 }
 
 void SFLTunnelTableWidget::StartProcess(

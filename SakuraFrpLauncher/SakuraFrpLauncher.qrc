@@ -6,5 +6,6 @@
         <file>Resources/images/log-btn-n.png</file>
         <file>Resources/images/start-stop-btn-c.png</file>
         <file>Resources/images/start-stop-btn-n.png</file>
+        <file>Resources/images/delete-btn-n.png</file>
     </qresource>
 </RCC>
