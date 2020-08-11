@@ -19,7 +19,7 @@ SFLCreateTunnelDlg::SFLCreateTunnelDlg(QWidget *parent) :
 {
     this->setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     this->setModal(true);
-    this->setFixedSize(270, 220);
+    this->setFixedSize(300, 240);
     this->setWindowTitle(QString::fromLocal8Bit("创建隧道"));
     this->setObjectName("SFLCreateTunnelDlg");
 
