@@ -26,11 +26,16 @@ SFLCreateTunnelDlg::SFLCreateTunnelDlg(QWidget *parent) :
     QWidget* local_widget = new QWidget(this);
     m_local_ip_line_edit = new QLineEdit(local_widget);
     m_local_ip_line_edit->setPlaceholderText(QString::fromLocal8Bit("本地IP"));
+    QPushButton* local_machine_btn = new QPushButton(local_widget);
+    local_machine_btn->setText(QString::fromLocal8Bit("本机"));
+    connect(local_machine_btn, &QPushButton::clicked, this, &SFLCreateTunnelDlg::OnLocalMachineBtnClicked);
     m_local_port_line_edit = new QLineEdit(local_widget);
     m_local_port_line_edit->setPlaceholderText(QString::fromLocal8Bit("本地端口"));
+    m_local_port_line_edit->setFixedWidth(60);
     QHBoxLayout* local_widget_h_layout = new QHBoxLayout(local_widget);
     local_widget_h_layout->setMargin(0);
     local_widget_h_layout->addWidget(m_local_ip_line_edit);
+    local_widget_h_layout->addWidget(local_machine_btn);
     local_widget_h_layout->addWidget(m_local_port_line_edit);
     local_widget->setLayout(local_widget_h_layout);
 
@@ -111,6 +116,11 @@ void SFLCreateTunnelDlg::InitCreateTunnelDlg(
             m_server_combox->addItem("#" + QString::number(node.node_id) + " " + node.node_name, data);
         }
     }
+}
+
+void SFLCreateTunnelDlg::OnLocalMachineBtnClicked(
+) {
+    m_local_ip_line_edit->setText("127.0.0.1");
 }
 
 void SFLCreateTunnelDlg::OnCreateTunnelBtnClicked(

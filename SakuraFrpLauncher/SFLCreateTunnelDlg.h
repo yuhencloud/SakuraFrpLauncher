@@ -24,6 +24,9 @@ public:
 
 private slots:
 
+    void OnLocalMachineBtnClicked(
+    );
+
     void OnCreateTunnelBtnClicked(
     );
 
