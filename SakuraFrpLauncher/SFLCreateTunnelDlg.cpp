@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QLabel>
 
 #include "SFLCommonDefs.h"
 #include "SFLGlobalMgr.h"
@@ -41,12 +42,18 @@ SFLCreateTunnelDlg::SFLCreateTunnelDlg(QWidget *parent) :
     m_tunnel_type_combox->addItem("tcp");
     m_tunnel_type_combox->addItem("udp");
     m_tunnel_type_combox->setCurrentIndex(0);
+    QLabel* remote_port_label = new QLabel(remote_widget);
+    remote_port_label->setText(QString::fromLocal8Bit("远程端口:"));
+    remote_port_label->setToolTip(QString::fromLocal8Bit("0随机，范围10240~65535"));
     m_remote_port_line_edit = new QLineEdit(remote_widget);
-    m_remote_port_line_edit->setPlaceholderText(QString::fromLocal8Bit("远程端口（0随机，10240~65535）"));
+    m_remote_port_line_edit->setPlaceholderText(QString::fromLocal8Bit("0随机，范围10240~65535"));
+    m_remote_port_line_edit->setToolTip(QString::fromLocal8Bit("0随机，范围10240~65535"));
     m_remote_port_line_edit->setText("0");
     QHBoxLayout* remote_widget_h_layout = new QHBoxLayout(remote_widget);
     remote_widget_h_layout->setMargin(0);
     remote_widget_h_layout->addWidget(m_tunnel_type_combox);
+    remote_widget_h_layout->addSpacing(20);
+    remote_widget_h_layout->addWidget(remote_port_label);
     remote_widget_h_layout->addWidget(m_remote_port_line_edit);
     remote_widget->setLayout(remote_widget_h_layout);
 
